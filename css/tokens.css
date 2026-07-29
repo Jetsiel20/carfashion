@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Design tokens — carfashion
+   Cores extraídas do logo (img/logo-carfashion.jpeg). Fonte única da verdade
+   para cor, tipografia e espaçamento. Nada de valores soltos fora daqui.
+   ========================================================================== */
+
+:root {
+  /* Cor primária — azul petróleo do splash */
+  --color-primary: #13779B;
+  --color-primary-dark: #0F5F7D;
+  --color-primary-light: #E8F3F7;
+
+  /* Cor de destaque/CTA — amarelo dourado do splash */
+  --color-accent: #F7BA2E;
+  --color-accent-dark: #E0A61E;
+
+  /* Cor de suporte/alerta — vermelho carmim do splash (uso mínimo) */
+  --color-support: #CB3537;
+  --color-support-dark: #A82A2C;
+
+  /* WhatsApp — verde oficial, exceção deliberada à paleta da marca */
+  --color-whatsapp: #25D366;
+  --color-whatsapp-dark: #1DA851;
+
+  /* Neutros */
+  --color-black: #1A1A1A;
+  --color-white: #FFFFFF;
+  --color-gray-50: #F7F7F7;
+  --color-gray-100: #EDEDED;
+  --color-gray-300: #CCCCCC;
+  --color-gray-600: #666666;
+
+  /* Tipografia */
+  --font-display: 'Alfa Slab One', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: 2.75rem;
+
+  /* Espaçamento (escala base 4px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Bordas e sombras */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
+}

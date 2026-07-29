@@ -1,0 +1,394 @@
+/* ==========================================================================
+   carfashion — estilos próprios
+   Bootstrap (via CDN) é usado só pelo grid/utilitários responsivos.
+   Todo componente visível (header, botões, cards) é estilizado aqui,
+   por cima do Bootstrap, para não ter "cara de template".
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-black);
+  background: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .brand-font {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* ---------- Nav de categorias (Bloco 5, visual apenas — sem filtro ainda) ---------- */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  background: var(--color-primary);
+  border-bottom: 3px solid var(--color-accent);
+  padding: var(--space-2) var(--space-6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.site-nav__logo {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.site-nav__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  margin-left: 8px;
+}
+
+.site-nav__name {
+  font-size: calc(var(--fs-lg) + 8px);
+  color: var(--color-white);
+}
+
+.site-nav__tagline {
+  font-size: var(--fs-xs);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.site-nav__link {
+  display: inline-block;
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.site-nav__slogan {
+  margin-left: auto;
+  color: var(--color-white);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background-color: var(--color-primary-dark);
+  background-image:
+    linear-gradient(rgba(15, 20, 30, 0.15), rgba(15, 20, 30, 0.15)),
+    url('../img/banner-carf.webp');
+  background-position: center, center 58%;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  color: var(--color-white);
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 0;
+    aspect-ratio: 720 / 781;
+    background-size: cover, cover;
+    background-position: center, center;
+  }
+}
+
+/* ---------- Contador de satisfação ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+}
+
+.stats__item {
+  text-align: center;
+  border-left: 1px solid var(--color-gray-100);
+  padding: 0 var(--space-4);
+}
+.stats__item:first-child {
+  border-left: none;
+}
+
+.stats__number {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-3xl);
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+.stats__number::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: var(--space-2) auto 0;
+}
+
+.stats__label {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .stats {
+    gap: var(--space-2);
+    padding: var(--space-8) var(--space-4);
+  }
+  .stats__number {
+    font-size: var(--fs-xl);
+  }
+}
+
+/* ---------- Botões (sobrescrevem o Bootstrap) ---------- */
+.btn-cf-primary,
+.btn-cf-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-cf-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.btn-cf-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-cf-accent {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+.btn-cf-accent:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-1px);
+}
+
+.btn-cf-whatsapp {
+  background: var(--color-whatsapp);
+  color: var(--color-white);
+}
+.btn-cf-whatsapp:hover {
+  background: var(--color-whatsapp-dark);
+  transform: translateY(-1px);
+}
+.btn-cf-whatsapp:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+/* ---------- Seletor de quantidade ---------- */
+.qty-stepper {
+  margin-top: var(--space-3);
+}
+
+.qty-stepper__input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  text-align: center;
+}
+
+/* ---------- Catálogo ---------- */
+.catalog-title {
+  font-size: var(--fs-xl);
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+/* ---------- Card de produto ---------- */
+.product-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.product-card__media {
+  position: relative;
+}
+
+.product-card__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.product-card__carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--color-white);
+  font-size: var(--fs-lg);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.product-card__carousel-btn:hover,
+.product-card__carousel-btn:focus-visible {
+  background: rgba(0, 0, 0, 0.7);
+}
+.product-card__carousel-btn--prev {
+  left: var(--space-2);
+}
+.product-card__carousel-btn--next {
+  right: var(--space-2);
+}
+
+.product-card__body {
+  padding: var(--space-4);
+}
+
+.product-card__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-1);
+}
+
+.product-card__price {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+}
+
+/* ---------- Seção "em construção" (nota do rodapé, Bloco 4) ---------- */
+.wip-note {
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+  color: var(--color-gray-600);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- Rodapé ---------- */
+.site-footer {
+  background: var(--color-black);
+  color: var(--color-gray-300);
+  padding: var(--space-12) var(--space-6) var(--space-6);
+}
+
+.site-footer__title {
+  font-size: var(--fs-base);
+  color: var(--color-white);
+  margin-bottom: var(--space-3);
+}
+
+.site-footer__text,
+.site-footer__list {
+  font-size: var(--fs-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__list li {
+  margin-bottom: var(--space-2);
+}
+
+.site-footer__link {
+  color: var(--color-gray-300);
+  text-decoration: none;
+}
+.site-footer__link:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
+.site-footer__social {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-footer__social-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.site-footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--color-gray-600);
+}
