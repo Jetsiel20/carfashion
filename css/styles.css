@@ -24,6 +24,20 @@ h1, h2, h3, .brand-font {
   margin: 0;
 }
 
+/* Base para qualquer botão "só ícone" de 32x32 (setas do carrossel, toggle
+   do menu, e futuros como o flutuante de WhatsApp) — cada um soma o resto
+   do próprio visual por cima. */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
 /* ---------- Nav de categorias (Bloco 5, visual apenas — sem filtro ainda) ---------- */
 .site-nav {
   display: flex;
@@ -70,6 +84,41 @@ h1, h2, h3, .brand-font {
   font-weight: 600;
 }
 
+.site-nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: auto;
+  background: transparent;
+}
+
+.site-nav__toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-white);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.site-nav__toggle[aria-expanded='true'] .site-nav__toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.site-nav__toggle[aria-expanded='true'] .site-nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+.site-nav__toggle[aria-expanded='true'] .site-nav__toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.site-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+}
+
 .site-nav__list {
   display: flex;
   gap: var(--space-2);
@@ -105,60 +154,97 @@ h1, h2, h3, .brand-font {
   white-space: nowrap;
 }
 
+/* ---------- Nav mobile: vira menu hambúrguer ---------- */
+@media (max-width: 768px) {
+  .site-nav {
+    flex-wrap: nowrap;
+  }
+
+  .site-nav__toggle {
+    display: flex;
+  }
+
+  .site-nav__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--color-primary);
+    border-bottom: 3px solid var(--color-accent);
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  .site-nav__menu.is-open {
+    max-height: 400px;
+    visibility: visible;
+    transition: max-height 0.25s ease, visibility 0s linear 0s;
+  }
+
+  .site-nav__list {
+    flex-direction: column;
+    gap: 0;
+    overflow-x: visible;
+    padding: var(--space-2) var(--space-6);
+  }
+
+  .site-nav__link {
+    display: block;
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .site-nav__slogan {
+    margin: 0 var(--space-6) var(--space-4);
+    white-space: normal;
+  }
+}
+
 /* ---------- Hero ---------- */
+/* Banner é uma imagem única, já com texto embutido (1600x639) — o box usa
+   a mesma proporção em qualquer largura de tela pra nunca cortar o texto. */
 .hero {
   background-color: var(--color-primary-dark);
   background-image:
-    linear-gradient(rgba(15, 20, 30, 0.15), rgba(15, 20, 30, 0.15)),
-    url('../img/banner-carf.webp');
-  background-position: center, center 58%;
-  background-size: cover, cover;
-  background-repeat: no-repeat, no-repeat;
+    linear-gradient(rgba(15, 20, 30, 0.05), rgba(15, 20, 30, 0.05)),
+    url('../img/carfashion.webp');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: var(--color-white);
-  padding: var(--space-16) var(--space-6);
-  text-align: center;
-  min-height: 500px;
+  aspect-ratio: 1600 / 639;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-@media (max-width: 1024px) {
-  .hero {
-    min-height: 0;
-    aspect-ratio: 720 / 781;
-    background-size: cover, cover;
-    background-position: center, center;
-  }
-}
-
-/* ---------- Contador de satisfação ---------- */
-.stats {
+/* ---------- Diferenciais ---------- */
+.differentials {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 900px;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1100px;
   margin: 0 auto;
   padding: var(--space-12) var(--space-6);
 }
 
-.stats__item {
+.differentials__item {
   text-align: center;
   border-left: 1px solid var(--color-gray-100);
   padding: 0 var(--space-4);
 }
-.stats__item:first-child {
+.differentials__item:first-child {
   border-left: none;
 }
 
-.stats__number {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--fs-3xl);
+.differentials__title {
+  font-size: var(--fs-lg);
   color: var(--color-primary);
-  font-variant-numeric: tabular-nums;
 }
-.stats__number::after {
+.differentials__title::after {
   content: '';
   display: block;
   width: 24px;
@@ -167,29 +253,32 @@ h1, h2, h3, .brand-font {
   margin: var(--space-2) auto 0;
 }
 
-.stats__label {
-  display: block;
-  margin-top: var(--space-2);
-  font-size: var(--fs-xs);
+.differentials__text {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-sm);
   color: var(--color-gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .differentials {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) 0;
+  }
+  .differentials__item:nth-child(odd) {
+    border-left: none;
+  }
 }
 
 @media (max-width: 480px) {
-  .stats {
-    gap: var(--space-2);
+  .differentials {
     padding: var(--space-8) var(--space-4);
-  }
-  .stats__number {
-    font-size: var(--fs-xl);
   }
 }
 
 /* ---------- Botões (sobrescrevem o Bootstrap) ---------- */
-.btn-cf-primary,
-.btn-cf-accent {
-  display: inline-flex;
+.btn-cf-whatsapp {
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
@@ -201,27 +290,6 @@ h1, h2, h3, .brand-font {
   font-size: var(--fs-base);
   cursor: pointer;
   transition: transform 0.15s ease, background-color 0.15s ease;
-}
-
-.btn-cf-primary {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-.btn-cf-primary:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-1px);
-}
-
-.btn-cf-accent {
-  background: var(--color-accent);
-  color: var(--color-black);
-}
-.btn-cf-accent:hover {
-  background: var(--color-accent-dark);
-  transform: translateY(-1px);
-}
-
-.btn-cf-whatsapp {
   background: var(--color-whatsapp);
   color: var(--color-white);
 }
@@ -258,6 +326,32 @@ h1, h2, h3, .brand-font {
   margin-bottom: var(--space-8);
 }
 
+/* Grid tipo "bento": a maioria das cards tem o mesmo tamanho, mas o
+   produto marcado como featured ocupa mais espaço pra criar hierarquia
+   visual (em vez de uma grelha 100% uniforme). */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .product-card--featured {
+    grid-column: span 2;
+  }
+}
+
+/* ---------- Reveal ao rolar (reutilizável) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ---------- Card de produto ---------- */
 .product-card {
   background: var(--color-white);
@@ -275,30 +369,29 @@ h1, h2, h3, .brand-font {
 
 .product-card__media {
   position: relative;
+  overflow: hidden;
 }
 
 .product-card__img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-card__img {
+  transform: scale(1.06);
 }
 
 .product-card__carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
-  border: none;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.45);
   color: var(--color-white);
   font-size: var(--fs-lg);
   line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   transition: background-color 0.15s ease;
 }
 .product-card__carousel-btn:hover,
@@ -323,18 +416,16 @@ h1, h2, h3, .brand-font {
   margin-bottom: var(--space-1);
 }
 
+.product-card__desc {
+  margin: 0 0 var(--space-2);
+  color: var(--color-gray-600);
+  font-size: var(--fs-sm);
+}
+
 .product-card__price {
   color: var(--color-primary);
   font-weight: 700;
   font-size: var(--fs-lg);
-}
-
-/* ---------- Seção "em construção" (nota do rodapé, Bloco 4) ---------- */
-.wip-note {
-  text-align: center;
-  padding: var(--space-8) var(--space-6);
-  color: var(--color-gray-600);
-  font-size: var(--fs-sm);
 }
 
 /* ---------- Rodapé ---------- */

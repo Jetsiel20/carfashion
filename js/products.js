@@ -9,6 +9,7 @@ export const products = [
     category: 'Canecas',
     price: 55.0,
     image: 'img/img-blanco.webp',
+    featured: true,
     // Demo visual do carrossel de cores (Bloco 5.1) — pedido do CEO para ver
     // como fica antes de decidir se o carrossel também serve pra escolher a cor.
     images: [

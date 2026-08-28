@@ -1,19 +1,18 @@
-// Ponto de entrada. Bloco 2: conecta os dados de produtos ao catálogo.
-// Carrinho e envio do pedido via WhatsApp entram nos próximos blocos,
-// cada um no seu próprio módulo (cart.js, whatsapp.js...).
+// Ponto de entrada: liga cada módulo (nav, catálogo, rodapé) aos seus
+// elementos no DOM. Sem carrinho — cada pedido sai direto pelo WhatsApp.
 
 import { products } from './products.js';
 import { renderCatalog } from './catalog.js';
-import { initStatsCounters } from './stats.js';
+import { initMobileNav } from './nav.js';
+
+const siteNav = document.querySelector('.site-nav');
+if (siteNav) {
+  initMobileNav(siteNav);
+}
 
 const catalogGrid = document.getElementById('catalog-grid');
 if (catalogGrid) {
   renderCatalog(catalogGrid, products);
-}
-
-const statsSection = document.querySelector('.stats');
-if (statsSection) {
-  initStatsCounters(statsSection);
 }
 
 const footerYear = document.getElementById('footer-year');

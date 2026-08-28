@@ -9,8 +9,7 @@
 // checado de forma síncrona (sem rede) antes de decidir o caminho, e a
 // imagem é pré-carregada com antecedência (ver preloadProductImage).
 
-// TODO: confirmar com o CEO o número completo (DDD + código do país).
-// Valor atual assume DDD 49 + celular começando em 9, conforme informado.
+// Número confirmado a partir do banner oficial (img/carfashion.jpeg): (49) 98878-9396.
 const WHATSAPP_NUMBER = '5549988789396';
 
 const imageBlobCache = new Map();

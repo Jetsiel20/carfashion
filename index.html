@@ -23,48 +23,66 @@
   <!-- Bloco 5: nav de categorias — ainda sem filtro conectado, só a estrutura visual -->
   <nav class="site-nav" aria-label="Categorias de produtos">
     <div class="site-nav__brand">
-      <img src="img/logo-carfashion.webp" alt="carfashion" class="site-nav__logo" />
+      <img src="img/carfashion.webp" alt="carfashion" class="site-nav__logo" />
       <span class="site-nav__brand-text">
         <span class="site-nav__name brand-font">carfashion</span>
         <span class="site-nav__tagline">sublimação</span>
       </span>
     </div>
-    <ul class="site-nav__list">
-      <li><a href="#" class="site-nav__link">Canecas</a></li>
-      <li><a href="#" class="site-nav__link">Bonés</a></li>
-      <li><a href="#" class="site-nav__link">Moletons</a></li>
-      <li><a href="#" class="site-nav__link">Almofadas</a></li>
-      <li><a href="#" class="site-nav__link">Regatas</a></li>
-      <li><a href="#" class="site-nav__link">DTF</a></li>
-    </ul>
-    <span class="site-nav__slogan">Compromisso e inovação em cada impressão</span>
+    <button
+      type="button"
+      class="icon-btn site-nav__toggle"
+      aria-expanded="false"
+      aria-controls="site-nav-menu"
+      aria-label="Abrir menu de categorias"
+    >
+      <span class="site-nav__toggle-bar"></span>
+      <span class="site-nav__toggle-bar"></span>
+      <span class="site-nav__toggle-bar"></span>
+    </button>
+
+    <div class="site-nav__menu" id="site-nav-menu">
+      <ul class="site-nav__list">
+        <li><a href="#" class="site-nav__link">Canecas</a></li>
+        <li><a href="#" class="site-nav__link">Bonés</a></li>
+        <li><a href="#" class="site-nav__link">Moletons</a></li>
+        <li><a href="#" class="site-nav__link">Almofadas</a></li>
+        <li><a href="#" class="site-nav__link">Regatas</a></li>
+        <li><a href="#" class="site-nav__link">DTF</a></li>
+      </ul>
+      <span class="site-nav__slogan">Compromisso e inovação em cada impressão</span>
+    </div>
   </nav>
 
   <section class="hero"></section>
 
-  <!-- Contador de satisfação — números de exemplo, aguardando dados reais do CEO -->
-  <section class="stats" aria-label="Números de satisfação">
-    <div class="stats__item">
-      <span class="stats__number" data-target="500" data-decimals="0" data-suffix="+">0</span>
-      <span class="stats__label">Clientes satisfeitos</span>
+  <!-- Diferenciais reais (mesmo texto do banner aprovado) — sem números
+       inventados, já que ainda não há avaliações públicas no Google. -->
+  <section class="differentials" aria-label="Nossos diferenciais">
+    <div class="differentials__item">
+      <h3 class="differentials__title brand-font">Personalizados</h3>
+      <p class="differentials__text">Com a sua cara</p>
     </div>
-    <div class="stats__item">
-      <span class="stats__number" data-target="1200" data-decimals="0" data-suffix="+">0</span>
-      <span class="stats__label">Pedidos entregues</span>
+    <div class="differentials__item">
+      <h3 class="differentials__title brand-font">Diversos produtos</h3>
+      <p class="differentials__text">Para todas as ocasiões</p>
     </div>
-    <div class="stats__item">
-      <span class="stats__number" data-target="4.9" data-decimals="1" data-suffix="★">0</span>
-      <span class="stats__label">Avaliação média</span>
+    <div class="differentials__item">
+      <h3 class="differentials__title brand-font">Qualidade premium</h3>
+      <p class="differentials__text">Em cada detalhe</p>
+    </div>
+    <div class="differentials__item">
+      <h3 class="differentials__title brand-font">Atendimento rápido</h3>
+      <p class="differentials__text">E entrega confiável</p>
     </div>
   </section>
 
   <section class="container py-5" id="catalogo">
     <h2 class="catalog-title brand-font">Nosso catálogo</h2>
-    <div class="row g-4" id="catalog-grid"></div>
+    <div class="catalog-grid" id="catalog-grid"></div>
   </section>
 
-  <p class="wip-note">Bloco 4: estrutura do rodapé (contato, redes sociais, horário) — conteúdo a definir.</p>
-
+  <!-- Bloco 4: rodapé com estrutura pronta; contato/horário ainda "a definir" até confirmar com o CEO -->
   <footer class="site-footer">
     <div class="container">
       <div class="row gy-4">
