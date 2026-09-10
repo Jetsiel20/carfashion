@@ -1,21 +1,28 @@
-// Ponto de entrada: liga cada módulo (nav, catálogo, rodapé) aos seus
-// elementos no DOM. Sem carrinho — cada pedido sai direto pelo WhatsApp.
+// Ponto de entrada: liga cada módulo (nav, catálogo, filtro, rodapé) aos
+// seus elementos no DOM. Sem carrinho — cada pedido sai direto pelo WhatsApp.
 
 import { products } from './products.js';
 import { renderCatalog } from './catalog.js';
 import { initMobileNav } from './nav.js';
+import { initCatalogFilter } from './catalog-filter.js';
+import { initGallery } from './gallery.js';
+import { initFooterYear } from './footer-year.js';
 
 const siteNav = document.querySelector('.site-nav');
 if (siteNav) {
   initMobileNav(siteNav);
 }
 
-const catalogGrid = document.getElementById('catalog-grid');
-if (catalogGrid) {
-  renderCatalog(catalogGrid, products);
+const gallerySection = document.querySelector('.gallery');
+if (gallerySection) {
+  initGallery(gallerySection);
 }
 
-const footerYear = document.getElementById('footer-year');
-if (footerYear) {
-  footerYear.textContent = new Date().getFullYear();
+const catalogGrid = document.getElementById('catalog-grid');
+const navCategories = document.getElementById('nav-categories');
+
+if (navCategories && catalogGrid) {
+  initCatalogFilter({ listEl: navCategories, products, catalogGrid, renderCatalog });
 }
+
+initFooterYear();

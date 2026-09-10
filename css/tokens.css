@@ -40,7 +40,6 @@
   --fs-lg: 1.125rem;
   --fs-xl: 1.5rem;
   --fs-2xl: 2rem;
-  --fs-3xl: 2.75rem;
 
   /* Espaçamento (escala base 4px) */
   --space-1: 0.25rem;
@@ -50,7 +49,6 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
   --space-12: 3rem;
-  --space-16: 4rem;
 
   /* Bordas e sombras */
   --radius-sm: 6px;

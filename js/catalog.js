@@ -1,9 +1,10 @@
-// Bloco 2/3: renderiza o catálogo e liga cada card ao pedido via WhatsApp.
+// Renderiza o catálogo e liga cada card ao pedido via WhatsApp.
 // Puro DOM (sem innerHTML) para manter o hábito seguro mesmo com dados locais.
 
 import { requestOrder, preloadProductImage, formatPrice } from './whatsapp.js';
 import { buildQtyStepper } from './qty-stepper.js';
 import { buildProductMedia } from './carousel.js';
+import { buildVariantSelect } from './variant-select.js';
 import { initScrollReveal } from './reveal.js';
 
 function buildProductCard(product) {
@@ -29,12 +30,20 @@ function buildProductCard(product) {
 
   const price = document.createElement('div');
   price.className = 'product-card__price';
-  price.textContent = formatPrice(product.price);
+
+  const { wrap: variantWrap, getSelected, onChange } = buildVariantSelect(product);
+
+  const updatePrice = () => {
+    const variant = getSelected();
+    price.textContent = formatPrice(variant ? variant.price : product.price);
+  };
+  updatePrice();
+  onChange?.(updatePrice);
 
   const { wrap: qtyWrap, input: qtyInput } = buildQtyStepper();
 
   const button = document.createElement('button');
-  button.className = 'btn-cf-whatsapp mt-3';
+  button.className = 'btn-cf-whatsapp';
   button.type = 'button';
   button.textContent = 'Pedir pelo WhatsApp';
 
@@ -44,14 +53,16 @@ function buildProductCard(product) {
     const originalText = button.textContent;
     button.textContent = 'Abrindo WhatsApp…';
     try {
-      await requestOrder(product, quantity);
+      await requestOrder(product, quantity, getSelected());
     } finally {
       button.disabled = false;
       button.textContent = originalText;
     }
   });
 
-  body.append(name, desc, price, qtyWrap, button);
+  body.append(name, desc, price);
+  if (variantWrap) body.append(variantWrap);
+  body.append(qtyWrap, button);
   card.append(media, body);
   return card;
 }

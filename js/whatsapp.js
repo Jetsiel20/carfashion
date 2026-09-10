@@ -1,4 +1,4 @@
-// Bloco 3: pedido direto por produto via WhatsApp.
+// Pedido direto por produto via WhatsApp.
 // Em navegadores/celulares compatíveis, abre o painel nativo de "compartilhar"
 // já com a imagem do produto + texto do pedido (Web Share API, nível 2 —
 // arquivos). Sem suporte, cai para um link wa.me só com texto e o cliente
@@ -28,14 +28,12 @@ export function formatPrice(value) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-function buildMessage(product, quantity) {
-  return [
-    'Olá! Quero fazer um pedido:',
-    '',
-    `Produto: ${product.name}`,
-    `Quantidade: ${quantity}`,
-    `Preço unitário: ${formatPrice(product.price)}`,
-  ].join('\n');
+function buildMessage(product, quantity, variant) {
+  const lines = ['Olá! Quero fazer um pedido:', '', `Produto: ${product.name}`];
+  if (variant) lines.push(`Opção: ${variant.label}`);
+  lines.push(`Quantidade: ${quantity}`);
+  lines.push(`Preço unitário: ${formatPrice(variant ? variant.price : product.price)}`);
+  return lines.join('\n');
 }
 
 function buildWaLink(text) {
@@ -70,8 +68,8 @@ async function tryShareWithImage(product, text) {
   }
 }
 
-export async function requestOrder(product, quantity) {
-  const text = buildMessage(product, quantity);
+export async function requestOrder(product, quantity, variant) {
+  const text = buildMessage(product, quantity, variant);
   const result = await tryShareWithImage(product, text);
   if (result === 'unsupported') {
     window.open(buildWaLink(text), '_blank', 'noopener');

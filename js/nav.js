@@ -1,5 +1,5 @@
-// Bloco 5.1: menu hambúrguer do nav mobile — colapsa/expande a lista de
-// categorias. No desktop o botão fica oculto via CSS e isto não faz nada.
+// Menu hambúrguer do nav mobile — colapsa/expande a lista de categorias.
+// No desktop o botão fica oculto via CSS e isto não faz nada.
 
 export function initMobileNav(nav) {
   const toggle = nav.querySelector('.site-nav__toggle');

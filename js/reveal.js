@@ -13,13 +13,16 @@ export function initScrollReveal(items, { stagger = DEFAULT_STAGGER_MS } = {}) {
   }
 
   const observer = new IntersectionObserver((entries, obs) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      const index = list.indexOf(entry.target);
-      entry.target.style.transitionDelay = `${Math.max(index, 0) * stagger}ms`;
-      entry.target.classList.add('is-visible');
-      obs.unobserve(entry.target);
-    }
+    // O delay usa a posição dentro desta tanda que entrou junto na tela,
+    // não a posição na lista inteira — senão, com muitos itens, um scroll
+    // rápido faz cards já visíveis ficarem "escondidas" por segundos.
+    entries
+      .filter((entry) => entry.isIntersecting)
+      .forEach((entry, index) => {
+        entry.target.style.transitionDelay = `${index * stagger}ms`;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
   }, { threshold: 0.1 });
 
   list.forEach((el) => observer.observe(el));

@@ -24,9 +24,11 @@ h1, h2, h3, .brand-font {
   margin: 0;
 }
 
-/* Base para qualquer botão "só ícone" de 32x32 (setas do carrossel, toggle
-   do menu, e futuros como o flutuante de WhatsApp) — cada um soma o resto
-   do próprio visual por cima. */
+/* Base para qualquer botão "só ícone" (setas do carrossel, toggle do
+   menu, e futuros como o flutuante de WhatsApp) — cada um soma o resto
+   do próprio visual por cima. 44px em mobile é o alvo de toque mínimo
+   recomendado (Apple HIG / WCAG); 32px no desktop, onde o cursor é
+   preciso. */
 .icon-btn {
   display: flex;
   align-items: center;
@@ -38,7 +40,9 @@ h1, h2, h3, .brand-font {
   cursor: pointer;
 }
 
-/* ---------- Nav de categorias (Bloco 5, visual apenas — sem filtro ainda) ---------- */
+/* ---------- Nav de categorias ---------- */
+/* As categorias em si (<li>) são geradas por js/catalog-filter.js a
+   partir dos dados de products.js — não há lista fixa aqui. */
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -46,7 +50,7 @@ h1, h2, h3, .brand-font {
   gap: var(--space-6);
   background: var(--color-primary);
   border-bottom: 3px solid var(--color-accent);
-  padding: var(--space-2) var(--space-6);
+  padding: var(--space-1) var(--space-6);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -57,6 +61,7 @@ h1, h2, h3, .brand-font {
   align-items: center;
   gap: var(--space-3);
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .site-nav__logo {
@@ -117,16 +122,26 @@ h1, h2, h3, .brand-font {
   gap: var(--space-6);
   flex: 1 1 auto;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
+/* Por padrão um item flex nunca encolhe além do tamanho do próprio
+   conteúdo (min-width:auto implícito) — com 12 categorias isso empurrava
+   a barra inteira a ficar mais larga que a tela em vez de rolar dentro
+   de si mesma, que é o que o overflow-x:auto abaixo deveria fazer. */
+/* Degradê no fim: dá a entender que a tira rola pro lado quando as
+   categorias não cabem inteiras (desktop/tablet) — inofensivo quando
+   cabem todas, só desaparece um pouco a última pílula. */
 .site-nav__list {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-1);
   list-style: none;
   margin: 0;
   padding: var(--space-2) 0;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  min-width: 0;
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
 }
 
 .site-nav__link {
@@ -134,19 +149,25 @@ h1, h2, h3, .brand-font {
   color: var(--color-white);
   text-decoration: none;
   font-weight: 600;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   white-space: nowrap;
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-lg);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .site-nav__link:hover,
-.site-nav__link:focus-visible {
+.site-nav__link:focus-visible,
+.site-nav__link.is-active {
   background: var(--color-accent);
   color: var(--color-black);
 }
 
+/* O eslogan não encolhe (white-space:nowrap, sem min-width:0) — junto
+   com as 12 categorias, ele que ficava pulando pra uma segunda linha e
+   causando a bagunça visual. Mais simples que fazer ele encolher: só
+   mostrar quando a tela é larga o bastante pra sobrar espaço de sobra. */
 .site-nav__slogan {
+  display: none;
   margin-left: auto;
   color: var(--color-white);
   font-size: var(--fs-sm);
@@ -154,16 +175,50 @@ h1, h2, h3, .brand-font {
   white-space: nowrap;
 }
 
+@media (min-width: 1280px) {
+  .site-nav__slogan {
+    display: inline;
+  }
+}
+
 /* ---------- Nav mobile: vira menu hambúrguer ---------- */
+/* 768px é o único breakpoint "isto é mobile" do site inteiro — nav,
+   hero e alvos de toque usam o mesmo valor de propósito, pra nunca ter
+   uma tela (ex.: tablet) onde um componente já mudou de modo e outro
+   ainda não. */
 @media (max-width: 768px) {
   .site-nav {
     flex-wrap: nowrap;
+  }
+
+  /* Sem isso o nome da marca nunca encolhe (flex-shrink:0 do desktop) e,
+     numa tela bem estreita, empurra o botão hambúrguer pra fora — a
+     página inteira ganha scroll horizontal. */
+  .site-nav__brand {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .site-nav__brand-text {
+    min-width: 0;
+  }
+  .site-nav__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .site-nav__toggle {
     display: flex;
   }
 
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* max-height em calc() em vez de um valor fixo: com muitas categorias
+     o conteúdo passa de 500px, e um número fixo cortava categorias
+     inteiras do menu sem nenhuma forma de rolar até elas. */
   .site-nav__menu {
     position: absolute;
     top: 100%;
@@ -181,7 +236,8 @@ h1, h2, h3, .brand-font {
   }
 
   .site-nav__menu.is-open {
-    max-height: 400px;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
     visibility: visible;
     transition: max-height 0.25s ease, visibility 0s linear 0s;
   }
@@ -191,6 +247,8 @@ h1, h2, h3, .brand-font {
     gap: 0;
     overflow-x: visible;
     padding: var(--space-2) var(--space-6);
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .site-nav__link {
@@ -199,14 +257,15 @@ h1, h2, h3, .brand-font {
   }
 
   .site-nav__slogan {
+    display: block;
     margin: 0 var(--space-6) var(--space-4);
     white-space: normal;
   }
 }
 
 /* ---------- Hero ---------- */
-/* Banner é uma imagem única, já com texto embutido (1600x639) — o box usa
-   a mesma proporção em qualquer largura de tela pra nunca cortar o texto. */
+/* Banner é uma imagem única, já com texto embutido (1600x639). No
+   desktop o box usa a mesma proporção da imagem pra nunca cortar nada. */
 .hero {
   background-color: var(--color-primary-dark);
   background-image:
@@ -220,6 +279,19 @@ h1, h2, h3, .brand-font {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Numa tela estreita, mostrar o banner inteiro (2.5:1) deixa a faixa
+   baixinha e o texto minúsculo. Os detalhes das bordas (contato,
+   ícones) já aparecem em Diferenciais e no rodapé, então em mobile vale
+   mais recortar pro centro — onde está o texto da marca — do que
+   encolher tudo pra caber. */
+@media (max-width: 768px) {
+  .hero {
+    aspect-ratio: auto;
+    height: 260px;
+    background-position: center;
+  }
 }
 
 /* ---------- Diferenciais ---------- */
@@ -275,16 +347,75 @@ h1, h2, h3, .brand-font {
   }
 }
 
+/* ---------- Vitrine de trabalhos (carrossel scroll-snap) ---------- */
+.gallery {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+}
+
+.gallery__title {
+  font-size: var(--fs-xl);
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.gallery__viewport {
+  position: relative;
+}
+
+.gallery__track {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--space-4);
+}
+
+.gallery__img {
+  flex: 0 0 auto;
+  width: min(420px, 80vw);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  scroll-snap-align: start;
+}
+
+.gallery__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--color-white);
+  font-size: var(--fs-lg);
+  line-height: 1;
+  transition: background-color 0.15s ease;
+}
+.gallery__btn:hover,
+.gallery__btn:focus-visible {
+  background: rgba(0, 0, 0, 0.7);
+}
+.gallery__btn--prev {
+  left: var(--space-2);
+}
+.gallery__btn--next {
+  right: var(--space-2);
+}
+
 /* ---------- Botões (sobrescrevem o Bootstrap) ---------- */
 .btn-cf-whatsapp {
   display: flex;
   width: 100%;
+  margin-top: auto;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
   border: none;
   border-radius: var(--radius-sm);
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-4) var(--space-6) var(--space-3);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: var(--fs-base);
@@ -303,6 +434,21 @@ h1, h2, h3, .brand-font {
   transform: none;
 }
 
+/* ---------- Seletor de variante (tamanho/personalização) ---------- */
+.variant-select {
+  margin-top: var(--space-2);
+}
+
+.variant-select__input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  background: var(--color-white);
+}
+
 /* ---------- Seletor de quantidade ---------- */
 .qty-stepper {
   margin-top: var(--space-3);
@@ -319,6 +465,12 @@ h1, h2, h3, .brand-font {
 }
 
 /* ---------- Catálogo ---------- */
+/* Sem isso, ao clicar numa categoria e rolar até aqui, o nav sticky
+   ficava por cima do título/primeiras cards. */
+#catalogo {
+  scroll-margin-top: 80px;
+}
+
 .catalog-title {
   font-size: var(--fs-xl);
   color: var(--color-primary-dark);
@@ -353,7 +505,15 @@ h1, h2, h3, .brand-font {
 }
 
 /* ---------- Card de produto ---------- */
+/* Nomes e descrições variam muito de tamanho entre os produtos, e nem
+   todo card tem seletor de variante — sem isso, o botão de WhatsApp
+   ficava em alturas diferentes de card pra card na mesma fileira. Com
+   o card e o body em coluna flex + margin-top:auto no botão, o botão
+   sempre "afunda" até o fundo do card, alinhado com o resto da fileira
+   (que o grid já estica pra mesma altura). */
 .product-card {
+  display: flex;
+  flex-direction: column;
   background: var(--color-white);
   border: 1px solid var(--color-gray-100);
   border-radius: var(--radius-md);
@@ -406,6 +566,9 @@ h1, h2, h3, .brand-font {
 }
 
 .product-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: var(--space-4);
 }
 
@@ -428,6 +591,59 @@ h1, h2, h3, .brand-font {
   font-size: var(--fs-lg);
 }
 
+/* ---------- Localização ---------- */
+.location {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+}
+
+.location__title {
+  font-size: var(--fs-xl);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-2);
+}
+
+.location__address {
+  margin: 0 0 var(--space-6);
+  color: var(--color-gray-600);
+  font-size: var(--fs-base);
+}
+
+.location__map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.location__map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.location__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.location__cta:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
 /* ---------- Rodapé ---------- */
 .site-footer {
   background: var(--color-black);
@@ -447,6 +663,10 @@ h1, h2, h3, .brand-font {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.site-footer__text + .site-footer__text {
+  margin-top: var(--space-2);
 }
 
 .site-footer__list li {
@@ -482,4 +702,62 @@ h1, h2, h3, .brand-font {
   text-align: center;
   font-size: var(--fs-xs);
   color: var(--color-gray-600);
+}
+
+.site-footer__legal-links {
+  margin-top: var(--space-2);
+}
+
+/* ---------- Páginas de texto (termos, privacidade) ---------- */
+.legal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-primary);
+  border-bottom: 3px solid var(--color-accent);
+  padding: var(--space-2) var(--space-6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.legal {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+}
+
+.legal h1 {
+  font-size: var(--fs-2xl);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-2);
+}
+
+.legal__updated {
+  color: var(--color-gray-600);
+  font-size: var(--fs-sm);
+  margin: 0 0 var(--space-8);
+}
+
+.legal h2 {
+  font-size: var(--fs-lg);
+  color: var(--color-primary-dark);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-2);
+}
+
+.legal p,
+.legal li {
+  color: var(--color-black);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+}
+
+.legal ul {
+  padding-left: var(--space-6);
+  margin: var(--space-2) 0;
+}
+
+.legal li + li {
+  margin-top: var(--space-1);
 }

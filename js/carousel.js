@@ -1,7 +1,7 @@
-// Carrossel de fotos do card de produto. Demo visual (Bloco 5.1): só troca
-// a foto ao clicar nas flechas. Ainda não decide cor nenhuma nem entra na
-// mensagem do WhatsApp — isso fica pra quando o CEO confirmar se o
-// carrossel também serve de seletor.
+// Carrossel de fotos do card de produto. Demo visual: só troca a foto ao
+// clicar nas flechas. Ainda não decide cor nenhuma nem entra na mensagem
+// do WhatsApp — isso fica pra quando o CEO confirmar se o carrossel
+// também serve de seletor.
 
 export function buildProductMedia(product) {
   const images = product.images && product.images.length > 1 ? product.images : [product.image];

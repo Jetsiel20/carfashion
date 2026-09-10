@@ -3,111 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>carfashion | Sublimação e DTF</title>
+  <title>Política de Privacidade | carfashion</title>
   <link rel="icon" href="img/logo-carfashion.webp" type="image/webp" />
 
-  <!-- Tipografia: Alfa Slab One (marca/títulos) + Inter (corpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Bootstrap: usado só pelo grid/utilitários, não pelo tema de componentes -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet" />
 
-  <!-- Tokens de design + estilos próprios -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-  <!-- Categorias geradas por js/catalog-filter.js a partir de products.js -->
-  <nav class="site-nav" aria-label="Categorias de produtos">
-    <div class="site-nav__brand">
+  <header class="legal-header">
+    <a href="index.html" class="site-nav__brand">
       <img src="img/carfashion.webp" alt="carfashion" class="site-nav__logo" />
       <span class="site-nav__brand-text">
         <span class="site-nav__name brand-font">carfashion</span>
         <span class="site-nav__tagline">sublimação</span>
       </span>
-    </div>
-    <button
-      type="button"
-      class="icon-btn site-nav__toggle"
-      aria-expanded="false"
-      aria-controls="site-nav-menu"
-      aria-label="Abrir menu de categorias"
-    >
-      <span class="site-nav__toggle-bar"></span>
-      <span class="site-nav__toggle-bar"></span>
-      <span class="site-nav__toggle-bar"></span>
-    </button>
+    </a>
+  </header>
 
-    <div class="site-nav__menu" id="site-nav-menu">
-      <ul class="site-nav__list" id="nav-categories"></ul>
-      <span class="site-nav__slogan">Compromisso e inovação em cada impressão</span>
-    </div>
-  </nav>
+  <main class="legal">
+    <h1 class="brand-font">Política de Privacidade</h1>
+    <p class="legal__updated">Última atualização: 10 de setembro de 2026</p>
 
-  <section class="hero"></section>
+    <p>
+      Esta política explica, de forma simples, quais dados este site coleta e como a
+      <strong>carfashion</strong> (Rua Humberto de Campo, 202, Jardim América, Chapecó/SC) trata essas
+      informações, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 — LGPD).
+    </p>
 
-  <!-- Diferenciais reais (mesmo texto do banner aprovado) — sem números
-       inventados, já que ainda não há avaliações públicas no Google. -->
-  <section class="differentials" aria-label="Nossos diferenciais">
-    <div class="differentials__item">
-      <h3 class="differentials__title brand-font">Personalizados</h3>
-      <p class="differentials__text">Com a sua cara</p>
-    </div>
-    <div class="differentials__item">
-      <h3 class="differentials__title brand-font">Diversos produtos</h3>
-      <p class="differentials__text">Para todas as ocasiões</p>
-    </div>
-    <div class="differentials__item">
-      <h3 class="differentials__title brand-font">Qualidade premium</h3>
-      <p class="differentials__text">Em cada detalhe</p>
-    </div>
-    <div class="differentials__item">
-      <h3 class="differentials__title brand-font">Atendimento rápido</h3>
-      <p class="differentials__text">E entrega confiável</p>
-    </div>
-  </section>
+    <h2>1. Este site não tem cadastro, cookies próprios nem rastreadores</h2>
+    <p>
+      Não existe criação de conta, login, carrinho de compras ou uso de cookies de rastreamento
+      próprios (como Google Analytics ou pixels de redes sociais) neste site. Ele funciona como um
+      catálogo: você navega pelos produtos e, se quiser pedir algo, é direcionado ao WhatsApp da
+      carfashion.
+    </p>
 
-  <!-- Vitrine de trabalhos reais (recortes do banner oficial, por enquanto —
-       trocar por fotos de clientes reais assim que existirem). -->
-  <section class="gallery" aria-label="Exemplos de trabalhos">
-    <h2 class="gallery__title brand-font">Alguns dos nossos trabalhos</h2>
-    <div class="gallery__viewport">
-      <div class="gallery__track">
-        <img class="gallery__img" src="img/gallery-produtos.webp" alt="Camisetas, caneca, boné e garrafa personalizados" loading="lazy" />
-        <img class="gallery__img" src="img/gallery-laser.webp" alt="Gravação a laser em madeira" loading="lazy" />
-        <img class="gallery__img" src="img/gallery-linha.webp" alt="Garrafa, porta-chaves, tábua e caneca personalizados" loading="lazy" />
-      </div>
-      <button type="button" class="icon-btn gallery__btn gallery__btn--prev" aria-label="Foto anterior">‹</button>
-      <button type="button" class="icon-btn gallery__btn gallery__btn--next" aria-label="Próxima foto">›</button>
-    </div>
-  </section>
+    <h2>2. Dados coletados ao usar o botão "Pedir pelo WhatsApp"</h2>
+    <p>
+      Ao clicar em "Pedir pelo WhatsApp", o site prepara uma mensagem (produto, opção escolhida e
+      quantidade) para você enviar pelo WhatsApp — o envio em si acontece dentro do aplicativo do
+      WhatsApp, não neste site. A partir daí, seu número de telefone e as informações que você
+      compartilhar na conversa (nome, endereço de entrega, designs enviados, etc.) passam a ser
+      tratados diretamente pela carfashion para preparar e entregar o seu pedido, e ficam sujeitas
+      também à própria política de privacidade do WhatsApp/Meta.
+    </p>
 
-  <section class="container py-5" id="catalogo">
-    <h2 class="catalog-title brand-font">Nosso catálogo</h2>
-    <div class="catalog-grid" id="catalog-grid"></div>
-  </section>
+    <h2>3. Recursos de terceiros carregados pelo site</h2>
+    <p>Para funcionar, este site carrega alguns recursos externos, que podem registrar seu endereço IP como parte do carregamento normal da página:</p>
+    <ul>
+      <li><strong>Google Fonts</strong> — carrega as fontes usadas no site.</li>
+      <li><strong>Bootstrap (via CDN jsDelivr)</strong> — biblioteca de layout/grid.</li>
+      <li><strong>Google Maps</strong> — exibe o mapa de localização da loja.</li>
+    </ul>
+    <p>
+      Cada um desses serviços é operado por sua respectiva empresa (Google, jsDelivr) e sujeito à
+      política de privacidade delas — a carfashion não tem acesso a nenhum dado coletado por esses
+      serviços além do que é publicamente visível na página.
+    </p>
 
-  <section class="location" aria-label="Nossa localização">
-    <h2 class="location__title brand-font">Onde estamos</h2>
-    <p class="location__address">Rua Humberto de Campo, 202 — Jardim América, Chapecó/SC</p>
-    <div class="location__map">
-      <iframe
-        src="https://www.google.com/maps?q=Rua+Humberto+de+Campo%2C+202+-+Jardim+America%2C+Chapeco+-+SC&output=embed"
-        loading="lazy"
-        title="Mapa: Rua Humberto de Campo, 202, Jardim América, Chapecó/SC"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
-    <a
-      href="https://www.google.com/maps/search/?api=1&query=Rua+Humberto+de+Campo%2C+202+-+Jardim+America%2C+Chapeco+-+SC"
-      class="location__cta"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Como chegar</a>
-  </section>
+    <h2>4. Para que os dados são usados</h2>
+    <p>
+      As informações trocadas pelo WhatsApp são usadas exclusivamente para responder à sua mensagem,
+      preparar orçamentos e processar pedidos — não são usadas para envio de propaganda não
+      solicitada nem compartilhadas com terceiros para fins comerciais.
+    </p>
+
+    <h2>5. Seus direitos (LGPD)</h2>
+    <p>Como titular dos dados, você pode a qualquer momento solicitar:</p>
+    <ul>
+      <li>confirmação de que seus dados estão sendo tratados;</li>
+      <li>acesso, correção ou exclusão dos seus dados;</li>
+      <li>informação sobre com quem seus dados foram compartilhados.</li>
+    </ul>
+    <p>
+      Para exercer esses direitos, entre em contato pelo
+      <a href="https://wa.me/5549988789396" target="_blank" rel="noopener noreferrer">WhatsApp (49) 98878-9396</a>.
+    </p>
+
+    <h2>6. Retenção e segurança</h2>
+    <p>
+      As conversas e dados de pedidos ficam armazenados no WhatsApp e são mantidos apenas pelo tempo
+      necessário para atender o pedido e cumprir obrigações fiscais/legais, sendo tratados com
+      cuidado razoável para evitar acesso não autorizado.
+    </p>
+
+    <h2>7. Alterações nesta política</h2>
+    <p>
+      Esta política pode ser atualizada; a data no topo indica a versão mais recente.
+    </p>
+
+    <h2>8. Contato</h2>
+    <p>
+      Dúvidas sobre esta Política de Privacidade podem ser enviadas pelo
+      <a href="https://wa.me/5549988789396" target="_blank" rel="noopener noreferrer">WhatsApp (49) 98878-9396</a>.
+    </p>
+  </main>
 
   <footer class="site-footer">
     <div class="container">
@@ -153,6 +150,9 @@
     </div>
   </footer>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { initFooterYear } from './js/footer-year.js';
+    initFooterYear();
+  </script>
 </body>
 </html>
