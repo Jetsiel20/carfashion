@@ -7,6 +7,8 @@ import { initMobileNav } from './nav.js';
 import { initCatalogFilter } from './catalog-filter.js';
 import { initGallery } from './gallery.js';
 import { initFooterYear } from './footer-year.js';
+import { initMapLoader } from './map-loader.js';
+import { loadPartial } from './partials.js';
 
 const siteNav = document.querySelector('.site-nav');
 if (siteNav) {
@@ -25,4 +27,10 @@ if (navCategories && catalogGrid) {
   initCatalogFilter({ listEl: navCategories, products, catalogGrid, renderCatalog });
 }
 
+await loadPartial('#footer-slot', 'partials/footer.html');
 initFooterYear();
+
+const locationMap = document.getElementById('location-map');
+if (locationMap) {
+  initMapLoader(locationMap);
+}

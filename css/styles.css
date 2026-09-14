@@ -50,7 +50,7 @@ h1, h2, h3, .brand-font {
   gap: var(--space-6);
   background: var(--color-primary);
   border-bottom: 3px solid var(--color-accent);
-  padding: var(--space-1) var(--space-6);
+  padding: 0 var(--space-6);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -79,7 +79,7 @@ h1, h2, h3, .brand-font {
 }
 
 .site-nav__name {
-  font-size: calc(var(--fs-lg) + 8px);
+  font-size: calc(var(--fs-lg) + 4px);
   color: var(--color-white);
 }
 
@@ -137,7 +137,7 @@ h1, h2, h3, .brand-font {
   gap: var(--space-1);
   list-style: none;
   margin: 0;
-  padding: var(--space-2) 0;
+  padding: 0;
   overflow-x: auto;
   min-width: 0;
   -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
@@ -270,7 +270,7 @@ h1, h2, h3, .brand-font {
   background-color: var(--color-primary-dark);
   background-image:
     linear-gradient(rgba(15, 20, 30, 0.05), rgba(15, 20, 30, 0.05)),
-    url('../img/carfashion.webp');
+    url('../img/banner-fashion.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -293,6 +293,22 @@ h1, h2, h3, .brand-font {
     background-position: center;
   }
 }
+
+/* Texto accesível para leitores de tela, oculto visualmente */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
 
 /* ---------- Diferenciais ---------- */
 .differentials {
@@ -348,10 +364,11 @@ h1, h2, h3, .brand-font {
 }
 
 /* ---------- Vitrine de trabalhos (carrossel scroll-snap) ---------- */
+
 .gallery {
   max-width: 1100px;
   margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
+  padding: var(--space-14) var(--space-6);
 }
 
 .gallery__title {
@@ -367,19 +384,40 @@ h1, h2, h3, .brand-font {
 
 .gallery__track {
   display: flex;
-  gap: var(--space-4);
+
+  /* Separação entre as imagens */
+  gap: 7px;
+
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--space-4);
+  scroll-padding-left: 4px;
+  align-items: center;
+
+  /* Firefox */
+  scrollbar-width: none;
+}
+
+/* Chrome, Edge e Safari */
+.gallery__track::-webkit-scrollbar {
+  display: none;
 }
 
 .gallery__img {
   flex: 0 0 auto;
-  width: min(420px, 80vw);
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+
+  width: min(450px, 82vw);
+  height: 335px;
+
+  /* Mostra a imagem completa */
+  object-fit: contain;
+
+  /* Aparência de cartão */
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
   scroll-snap-align: start;
 }
 
@@ -387,23 +425,33 @@ h1, h2, h3, .brand-font {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.45);
   color: var(--color-white);
+
   font-size: var(--fs-lg);
   line-height: 1;
+
   transition: background-color 0.15s ease;
+
+  z-index: 2;
 }
+
 .gallery__btn:hover,
 .gallery__btn:focus-visible {
   background: rgba(0, 0, 0, 0.7);
 }
+
 .gallery__btn--prev {
   left: var(--space-2);
 }
+
 .gallery__btn--next {
   right: var(--space-2);
 }
+
+
 
 /* ---------- Botões (sobrescrevem o Bootstrap) ---------- */
 .btn-cf-whatsapp {
@@ -625,6 +673,23 @@ h1, h2, h3, .brand-font {
   border: 0;
 }
 
+.location__map-load {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.location__map-load:hover,
+.location__map-load:focus-visible {
+  background: var(--color-gray-100);
+}
+
 .location__cta {
   display: inline-flex;
   align-items: center;
@@ -760,4 +825,39 @@ h1, h2, h3, .brand-font {
 
 .legal li + li {
   margin-top: var(--space-1);
+}
+
+.not-found {
+  text-align: center;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+.not-found__code {
+  font-size: 5rem;
+  color: var(--color-primary-light);
+  -webkit-text-stroke: 2px var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.not-found p {
+  color: var(--color-gray-600);
+}
+
+.not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.not-found__secondary {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.not-found__secondary:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
 }

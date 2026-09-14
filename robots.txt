@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Sitemap: adicionar aqui (Sitemap: https://.../sitemap.xml) quando o domínio definitivo existir.
