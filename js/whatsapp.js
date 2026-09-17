@@ -1,77 +1,225 @@
-// Pedido direto por produto via WhatsApp.
-// Em navegadores/celulares compatíveis, abre o painel nativo de "compartilhar"
-// já com a imagem do produto + texto do pedido (Web Share API, nível 2 —
-// arquivos). Sem suporte, cai para um link wa.me só com texto e o cliente
-// anexa a imagem manualmente no chat.
+// =========================================================
+// PEDIDOS DIRETOS VIA WHATSAPP
+// =========================================================
 //
-// Importante: o fallback (window.open) só funciona se rodar ainda dentro do
-// gesto de clique do usuário. Por isso o suporte a compartilhar arquivo é
-// checado de forma síncrona (sem rede) antes de decidir o caminho, e a
-// imagem é pré-carregada com antecedência (ver preloadProductImage).
+// Todos os pedidos vão diretamente para o WhatsApp oficial
+// da CarFashion.
+//
+// O cliente NÃO precisa ter o número salvo nos contatos.
+//
+// A mensagem inclui:
+// - produto;
+// - categoria;
+// - descrição;
+// - opção selecionada;
+// - quantidade;
+// - valor unitário;
+// - total estimado;
+// - link público da imagem.
+//
+// =========================================================
 
-// Número confirmado a partir do banner oficial (img/carfashion.jpeg): (49) 98878-9396.
 const WHATSAPP_NUMBER = '5549988789396';
 
-const imageBlobCache = new Map();
-
-export function preloadProductImage(product) {
-  if (imageBlobCache.has(product.id)) return;
-  imageBlobCache.set(
-    product.id,
-    fetch(product.image)
-      .then((response) => response.blob())
-      .catch(() => null)
-  );
-}
-
 export function formatPrice(value) {
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const price = Number(value);
+
+  if (!Number.isFinite(price)) {
+    return '';
+  }
+
+  return price.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 }
 
-function buildMessage(product, quantity, variant) {
-  const lines = ['Olá! Quero fazer um pedido:', '', `Produto: ${product.name}`];
-  if (variant) lines.push(`Opção: ${variant.label}`);
-  lines.push(`Quantidade: ${quantity}`);
-  lines.push(`Preço unitário: ${formatPrice(variant ? variant.price : product.price)}`);
+/* =========================================================
+   QUANTIDADE
+   ========================================================= */
+
+function normalizeQuantity(quantity) {
+  const parsedQuantity =
+    Number.parseInt(quantity, 10);
+
+  if (
+    !Number.isFinite(parsedQuantity) ||
+    parsedQuantity < 1
+  ) {
+    return 1;
+  }
+
+  return parsedQuantity;
+}
+
+/* =========================================================
+   PREÇO
+   ========================================================= */
+
+function getUnitPrice(product, variant) {
+  const price =
+    variant?.price ??
+    product?.price;
+
+  return Number(price);
+}
+
+/* =========================================================
+   IMAGEM PÚBLICA
+   ========================================================= */
+
+function getProductImageUrl(product) {
+  if (!product?.image) {
+    return null;
+  }
+
+  /*
+   * Não envia imagens em base64.
+   */
+  if (product.image.startsWith('data:')) {
+    return null;
+  }
+
+  try {
+    return new URL(
+      product.image,
+      document.baseURI
+    ).href;
+  } catch {
+    return null;
+  }
+}
+
+/* =========================================================
+   MENSAGEM DO PEDIDO
+   ========================================================= */
+
+function buildMessage(
+  product,
+  quantity,
+  variant
+) {
+  const safeQuantity =
+    normalizeQuantity(quantity);
+
+  const unitPrice =
+    getUnitPrice(product, variant);
+
+  const hasValidPrice =
+    Number.isFinite(unitPrice);
+
+  const total =
+    hasValidPrice
+      ? unitPrice * safeQuantity
+      : null;
+
+  const imageUrl =
+    getProductImageUrl(product);
+
+  const lines = [
+    'Olá! 👋',
+    'Vim pelo site da CarFashion e quero fazer um pedido.',
+    '',
+    '🛍️ *DADOS DO PEDIDO*',
+    '',
+    `Produto: ${product.name}`,
+  ];
+
+  if (product.category) {
+    lines.push(
+      `Categoria: ${product.category}`
+    );
+  }
+
+  if (product.description) {
+    lines.push(
+      `Descrição: ${product.description}`
+    );
+  }
+
+  if (variant?.label) {
+    lines.push(
+      `Opção: ${variant.label}`
+    );
+  }
+
+  lines.push(
+    `Quantidade: ${safeQuantity}`
+  );
+
+  if (hasValidPrice) {
+    lines.push(
+      `Valor unitário: ${formatPrice(unitPrice)}`,
+      `Total estimado: ${formatPrice(total)}`
+    );
+  }
+
+  if (imageUrl) {
+    lines.push(
+      '',
+      '🖼️ *Imagem do produto:*',
+      imageUrl
+    );
+  }
+
+  lines.push(
+    '',
+    'Gostaria de confirmar os detalhes e finalizar o pedido.',
+    '',
+    'Pedido iniciado pelo site CarFashion.'
+  );
+
   return lines.join('\n');
 }
 
-function buildWaLink(text) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-}
+/* =========================================================
+   LINK WHATSAPP
+   ========================================================= */
 
-// Checagem 100% síncrona (sem fetch) pra não gastar o gesto do usuário
-// em navegadores que não suportam compartilhar arquivos (ex.: desktop).
-function canShareFiles() {
-  if (!navigator.share || !navigator.canShare) return false;
-  const probe = new File([], 'probe.jpg', { type: 'image/jpeg' });
-  return navigator.canShare({ files: [probe] });
-}
-
-// Retorna 'shared' | 'cancelled' | 'unsupported'.
-async function tryShareWithImage(product, text) {
-  if (!canShareFiles()) return 'unsupported';
-
-  const blob = await (
-    imageBlobCache.get(product.id) ??
-    fetch(product.image).then((r) => r.blob()).catch(() => null)
+function buildWhatsAppUrl(message) {
+  return (
+    `https://wa.me/${WHATSAPP_NUMBER}` +
+    `?text=${encodeURIComponent(message)}`
   );
-  if (!blob) return 'unsupported';
-
-  const file = new File([blob], product.image.split('/').pop(), { type: blob.type });
-  try {
-    await navigator.share({ files: [file], text, title: product.name });
-    return 'shared';
-  } catch (error) {
-    if (error && error.name === 'AbortError') return 'cancelled';
-    return 'unsupported';
-  }
 }
 
-export async function requestOrder(product, quantity, variant) {
-  const text = buildMessage(product, quantity, variant);
-  const result = await tryShareWithImage(product, text);
-  if (result === 'unsupported') {
-    window.open(buildWaLink(text), '_blank', 'noopener');
+/* =========================================================
+   ABRIR PEDIDO
+   ========================================================= */
+
+export function requestOrder(
+  product,
+  quantity,
+  variant
+) {
+  if (!product?.name) {
+    console.error(
+      'CarFashion: produto inválido para pedido.'
+    );
+
+    return;
   }
+
+  const message =
+    buildMessage(
+      product,
+      quantity,
+      variant
+    );
+
+  const whatsappUrl =
+    buildWhatsAppUrl(message);
+
+  /*
+   * Vai diretamente para o WhatsApp.
+   *
+   * Não usa navigator.share.
+   * Não abre painel de compartilhamento.
+   * Não exige número salvo.
+   */
+  window.open(
+    whatsappUrl,
+    '_blank',
+    'noopener,noreferrer'
+  );
 }

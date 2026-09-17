@@ -1,76 +1,226 @@
-// Renderiza o catálogo e liga cada card ao pedido via WhatsApp.
-// Puro DOM (sem innerHTML) para manter o hábito seguro mesmo com dados locais.
+// =========================================================
+// CATÁLOGO
+// =========================================================
+//
+// Renderiza os produtos e envia os pedidos
+// diretamente para o WhatsApp.
+//
+// =========================================================
 
-import { requestOrder, preloadProductImage, formatPrice } from './whatsapp.js';
-import { buildQtyStepper } from './qty-stepper.js';
-import { buildProductMedia } from './carousel.js';
-import { buildVariantSelect } from './variant-select.js';
-import { initScrollReveal } from './reveal.js';
+import {
+  requestOrder,
+  formatPrice,
+} from './whatsapp.js';
+
+import {
+  buildQtyStepper,
+} from './qty-stepper.js';
+
+import {
+  buildProductMedia,
+} from './carousel.js';
+
+import {
+  buildVariantSelect,
+} from './variant-select.js';
+
+import {
+  initScrollReveal,
+} from './reveal.js';
+
+/* =========================================================
+   CARD DO PRODUTO
+   ========================================================= */
 
 function buildProductCard(product) {
-  preloadProductImage(product);
 
-  const card = document.createElement('div');
-  card.className = product.featured
-    ? 'product-card product-card--featured reveal'
-    : 'product-card reveal';
+  const card =
+    document.createElement('div');
 
-  const media = buildProductMedia(product);
+  card.className =
+    product.featured
+      ? 'product-card product-card--featured reveal'
+      : 'product-card reveal';
 
-  const body = document.createElement('div');
-  body.className = 'product-card__body';
+  /* IMAGEM */
 
-  const name = document.createElement('div');
-  name.className = 'product-card__name';
-  name.textContent = product.name;
+  const media =
+    buildProductMedia(product);
 
-  const desc = document.createElement('p');
-  desc.className = 'product-card__desc';
-  desc.textContent = product.description;
+  /* CONTEÚDO */
 
-  const price = document.createElement('div');
-  price.className = 'product-card__price';
+  const body =
+    document.createElement('div');
 
-  const { wrap: variantWrap, getSelected, onChange } = buildVariantSelect(product);
+  body.className =
+    'product-card__body';
+
+  /* NOME */
+
+  const name =
+    document.createElement('div');
+
+  name.className =
+    'product-card__name';
+
+  name.textContent =
+    product.name;
+
+  /* DESCRIÇÃO */
+
+  const desc =
+    document.createElement('p');
+
+  desc.className =
+    'product-card__desc';
+
+  desc.textContent =
+    product.description ?? '';
+
+  /* PREÇO */
+
+  const price =
+    document.createElement('div');
+
+  price.className =
+    'product-card__price';
+
+  /* VARIANTES */
+
+  const {
+    wrap: variantWrap,
+    getSelected,
+    onChange,
+  } = buildVariantSelect(product);
+
+  /* ATUALIZAR PREÇO */
 
   const updatePrice = () => {
-    const variant = getSelected();
-    price.textContent = formatPrice(variant ? variant.price : product.price);
+
+    const variant =
+      getSelected();
+
+    const currentPrice =
+      variant?.price ??
+      product.price;
+
+    if (
+      Number.isFinite(
+        Number(currentPrice)
+      )
+    ) {
+      price.textContent =
+        formatPrice(currentPrice);
+    } else {
+      price.textContent =
+        'Consultar valor';
+    }
   };
+
   updatePrice();
+
   onChange?.(updatePrice);
 
-  const { wrap: qtyWrap, input: qtyInput } = buildQtyStepper();
+  /* QUANTIDADE */
 
-  const button = document.createElement('button');
-  button.className = 'btn-cf-whatsapp';
-  button.type = 'button';
-  button.textContent = 'Pedir pelo WhatsApp';
+  const {
+    wrap: qtyWrap,
+    input: qtyInput,
+  } = buildQtyStepper();
 
-  button.addEventListener('click', async () => {
-    const quantity = Math.max(1, parseInt(qtyInput.value, 10) || 1);
-    button.disabled = true;
-    const originalText = button.textContent;
-    button.textContent = 'Abrindo WhatsApp…';
-    try {
-      await requestOrder(product, quantity, getSelected());
-    } finally {
-      button.disabled = false;
-      button.textContent = originalText;
+  /* BOTÃO WHATSAPP */
+
+  const button =
+    document.createElement('button');
+
+  button.className =
+    'btn-cf-whatsapp';
+
+  button.type =
+    'button';
+
+  button.textContent =
+    'Pedir pelo WhatsApp';
+
+  button.setAttribute(
+    'aria-label',
+    `Pedir ${product.name} pelo WhatsApp`
+  );
+
+  /* =======================================================
+     PEDIDO
+     ======================================================= */
+
+  button.addEventListener(
+    'click',
+    () => {
+
+      const quantity =
+        Math.max(
+          1,
+          Number.parseInt(
+            qtyInput.value,
+            10
+          ) || 1
+        );
+
+      requestOrder(
+        product,
+        quantity,
+        getSelected()
+      );
     }
-  });
+  );
 
-  body.append(name, desc, price);
-  if (variantWrap) body.append(variantWrap);
-  body.append(qtyWrap, button);
-  card.append(media, body);
+  /* =======================================================
+     MONTAGEM
+     ======================================================= */
+
+  body.append(
+    name,
+    desc,
+    price
+  );
+
+  if (variantWrap) {
+    body.append(
+      variantWrap
+    );
+  }
+
+  body.append(
+    qtyWrap,
+    button
+  );
+
+  card.append(
+    media,
+    body
+  );
+
   return card;
 }
 
-export function renderCatalog(container, items) {
+/* =========================================================
+   RENDERIZAÇÃO
+   ========================================================= */
+
+export function renderCatalog(
+  container,
+  items
+) {
+
   container.replaceChildren();
+
   for (const product of items) {
-    container.append(buildProductCard(product));
+    container.append(
+      buildProductCard(product)
+    );
   }
-  initScrollReveal(container.querySelectorAll('.product-card'));
+
+  initScrollReveal(
+    container.querySelectorAll(
+      '.product-card'
+    )
+  );
 }
