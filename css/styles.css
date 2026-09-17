@@ -727,167 +727,510 @@ h1, h2, h3, .brand-font {
   transform: translateY(-1px);
 }
 
-/* ---------- Rodapé ---------- */
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
 .site-footer {
-  background: var(--color-black);
+  margin-top: var(--space-12);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-primary-dark),
+      #080b12 70%
+    );
+
   color: var(--color-gray-300);
-  padding: var(--space-12) var(--space-6) var(--space-6);
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.site-footer__container {
+  width: 100%;
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding:
+    var(--space-12)
+    var(--space-6);
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.site-footer__grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(240px, 1.35fr)
+    repeat(3, minmax(160px, 1fr));
+
+  gap: var(--space-8);
+}
+
+/* =========================================================
+   MARCA
+   ========================================================= */
+
+.site-footer__brand {
+  max-width: 320px;
+}
+
+.site-footer__brand-link {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  color: var(--color-white);
+
+  text-decoration: none;
+}
+
+.site-footer__logo {
+  width: 58px;
+  height: 58px;
+
+  flex: 0 0 auto;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.site-footer__brand-text {
+  display: flex;
+  flex-direction: column;
+
+  line-height: 1.05;
+}
+
+.site-footer__brand-name {
+  color: var(--color-white);
+
+  font-size: 26px;
+}
+
+.site-footer__brand-tagline {
+  margin-top: 3px;
+
+  color: var(--color-accent);
+
+  font-size: var(--fs-xs);
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+.site-footer__description {
+  margin:
+    var(--space-5)
+    0
+    0;
+
+  color: var(--color-gray-300);
+
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+}
+
+.site-footer__slogan {
+  margin:
+    var(--space-3)
+    0
+    0;
+
+  color: var(--color-accent);
+
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* =========================================================
+   COLUNAS
+   ========================================================= */
+
+.site-footer__column {
+  min-width: 0;
 }
 
 .site-footer__title {
-  font-size: var(--fs-base);
+  margin:
+    0
+    0
+    var(--space-5);
+
   color: var(--color-white);
-  margin-bottom: var(--space-3);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: 700;
 }
 
-.site-footer__text,
+.site-footer__title::after {
+  content: '';
+
+  display: block;
+
+  width: 30px;
+  height: 2px;
+
+  margin-top: var(--space-2);
+
+  background: var(--color-accent);
+
+  border-radius: 999px;
+}
+
+/* =========================================================
+   LISTAS
+   ========================================================= */
+
 .site-footer__list {
-  font-size: var(--fs-sm);
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+
   margin: 0;
   padding: 0;
+
   list-style: none;
 }
 
-.site-footer__text + .site-footer__text {
-  margin-top: var(--space-2);
+/* =========================================================
+   CONTATO
+   ========================================================= */
+
+.site-footer__contact-link,
+.site-footer__address {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--space-3);
 }
 
-.site-footer__list li {
-  margin-bottom: var(--space-2);
-}
-
-.site-footer__link {
+.site-footer__contact-link {
   color: var(--color-gray-300);
+
   text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
-.site-footer__link:hover {
+
+.site-footer__contact-link:hover {
   color: var(--color-white);
-  text-decoration: underline;
+
+  transform: translateX(2px);
+}
+
+.site-footer__contact-link span:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.site-footer__contact-link small {
+  color: var(--color-gray-600);
+
+  font-size: var(--fs-xs);
+}
+
+.site-footer__contact-link strong {
+  color: inherit;
+
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.site-footer__contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  font-size: 15px;
+}
+
+.site-footer__address {
+  color: var(--color-gray-300);
+
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+/* =========================================================
+   REDES SOCIAIS
+   ========================================================= */
+
+.site-footer__social-list {
+  gap: var(--space-3);
 }
 
 .site-footer__social {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: var(--space-2);
+
+  gap: var(--space-3);
+
+  color: var(--color-gray-300);
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.site-footer__social:hover {
+  color: var(--color-white);
+
+  transform: translateX(2px);
 }
 
 .site-footer__social-icon {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
+
+  flex: 0 0 auto;
+
   fill: currentColor;
-  flex-shrink: 0;
 }
 
-.site-footer__bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: var(--space-8);
-  padding-top: var(--space-4);
-  text-align: center;
-  font-size: var(--fs-xs);
+.site-footer__social > span {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.site-footer__social strong {
+  color: inherit;
+
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.site-footer__social small {
   color: var(--color-gray-600);
+
+  font-size: var(--fs-xs);
+}
+
+/* =========================================================
+   HORÁRIO
+   ========================================================= */
+
+.site-footer__schedule {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+}
+
+.site-footer__schedule > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.site-footer__schedule span {
+  color: var(--color-gray-600);
+
+  font-size: var(--fs-xs);
+}
+
+.site-footer__schedule strong {
+  color: var(--color-gray-300);
+
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* =========================================================
+   CTA WHATSAPP
+   ========================================================= */
+
+.site-footer__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: var(--space-5);
+
+  padding:
+    var(--space-3)
+    var(--space-4);
+
+  border-radius: var(--radius-sm);
+
+  background: var(--color-whatsapp);
+  color: var(--color-white);
+
+  font-size: var(--fs-sm);
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.site-footer__cta:hover {
+  background: var(--color-whatsapp-dark);
+
+  color: var(--color-white);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   PARTE INFERIOR
+   ========================================================= */
+
+.site-footer__bottom {
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+}
+
+.site-footer__bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-4);
+
+  width: 100%;
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding:
+    var(--space-5)
+    var(--space-6);
+}
+
+.site-footer__bottom p {
+  margin: 0;
+
+  color: var(--color-gray-600);
+
+  font-size: var(--fs-xs);
+}
+
+.site-footer__bottom strong {
+  color: var(--color-gray-300);
+
+  font-weight: 600;
 }
 
 .site-footer__legal-links {
-  margin-top: var(--space-2);
-}
-
-/* ---------- Páginas de texto (termos, privacidade) ---------- */
-.legal-header {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  background: var(--color-primary);
-  border-bottom: 3px solid var(--color-accent);
-  padding: var(--space-2) var(--space-6);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+
+  gap: var(--space-2);
+
+  font-size: var(--fs-xs);
 }
 
-.legal {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
-}
-
-.legal h1 {
-  font-size: var(--fs-2xl);
-  color: var(--color-primary-dark);
-  margin-bottom: var(--space-2);
-}
-
-.legal__updated {
+.site-footer__legal-links a {
   color: var(--color-gray-600);
-  font-size: var(--fs-sm);
-  margin: 0 0 var(--space-8);
+
+  text-decoration: none;
+
+  transition: color 0.2s ease;
 }
 
-.legal h2 {
-  font-size: var(--fs-lg);
-  color: var(--color-primary-dark);
-  margin-top: var(--space-8);
-  margin-bottom: var(--space-2);
+.site-footer__legal-links a:hover {
+  color: var(--color-white);
+
+  text-decoration: underline;
 }
 
-.legal p,
-.legal li {
-  color: var(--color-black);
-  font-size: var(--fs-base);
-  line-height: 1.6;
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .site-footer__grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .site-footer__brand {
+    max-width: none;
+  }
+
 }
 
-.legal ul {
-  padding-left: var(--space-6);
-  margin: var(--space-2) 0;
-}
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-.legal li + li {
-  margin-top: var(--space-1);
-}
+@media (max-width: 600px) {
 
-.not-found {
-  text-align: center;
-  padding-top: var(--space-12);
-  padding-bottom: var(--space-12);
-}
+  .site-footer__container {
+    padding:
+      var(--space-8)
+      var(--space-4);
+  }
 
-.not-found__code {
-  font-size: 5rem;
-  color: var(--color-primary-light);
-  -webkit-text-stroke: 2px var(--color-primary);
-  margin-bottom: var(--space-2);
-}
+  .site-footer__grid {
+    grid-template-columns: 1fr;
 
-.not-found p {
-  color: var(--color-gray-600);
-}
+    gap: var(--space-8);
+  }
 
-.not-found__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-4);
-  margin-top: var(--space-8);
-}
+  .site-footer__brand {
+    max-width: 100%;
+  }
 
-.not-found__secondary {
-  background: var(--color-white);
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-}
-.not-found__secondary:hover {
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
-}
+  .site-footer__bottom-inner {
+    flex-direction: column;
 
+    align-items: flex-start;
 
+    padding:
+      var(--space-5)
+      var(--space-4);
+  }
+
+  .site-footer__legal-links {
+    flex-wrap: wrap;
+  }
+
+}
 /* =========================================================
    PAGAMENTO E ENVIO
    ========================================================= */
 
 .payment-shipping {
-  background: var(--color-white);
   padding: var(--space-12) var(--space-6);
+  background: var(--color-white);
 }
 
 .payment-shipping__container {
@@ -926,11 +1269,15 @@ h1, h2, h3, .brand-font {
 
 /* =========================================================
    GRID PRINCIPAL
+   PAGAMENTO + ENVIO LADO A LADO
    ========================================================= */
 
 .payment-shipping__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
   align-items: stretch;
 
   gap: var(--space-6);
@@ -966,17 +1313,19 @@ h1, h2, h3, .brand-font {
 .info-card:hover {
   transform: translateY(-2px);
 
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
 
   box-shadow: var(--shadow-md);
 }
+
+/* Ícone principal */
 
 .info-card__icon {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  flex: 0 0 auto;
+  flex: 0 0 52px;
 
   width: 52px;
   height: 52px;
@@ -985,12 +1334,14 @@ h1, h2, h3, .brand-font {
 
   background: var(--color-primary-light);
 
-  font-size: 25px;
+  font-size: 24px;
   line-height: 1;
 }
 
+/* Conteúdo */
+
 .info-card__content {
-  width: 100%;
+  flex: 1;
   min-width: 0;
 }
 
@@ -1003,10 +1354,6 @@ h1, h2, h3, .brand-font {
   font-size: var(--fs-lg);
   font-weight: 700;
 }
-
-/* =========================================================
-   TEXTO AUXILIAR
-   ========================================================= */
 
 .info-card__text {
   margin: 0 0 var(--space-5);
@@ -1041,18 +1388,14 @@ h1, h2, h3, .brand-font {
 
   margin: 0;
   padding: var(--space-2) 0;
-
-  color: var(--color-gray-600);
 }
-
-/* Check verde */
 
 .info-card__check {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  flex: 0 0 auto;
+  flex: 0 0 22px;
 
   width: 22px;
   height: 22px;
@@ -1068,8 +1411,6 @@ h1, h2, h3, .brand-font {
   font-weight: 700;
   line-height: 1;
 }
-
-/* Nome + informação adicional */
 
 .payment-method {
   display: flex;
@@ -1097,12 +1438,10 @@ h1, h2, h3, .brand-font {
    ========================================================= */
 
 .mercado-pago-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   gap: var(--space-3);
-
-  width: fit-content;
 
   margin-top: var(--space-5);
   padding: var(--space-3) var(--space-4);
@@ -1113,14 +1452,12 @@ h1, h2, h3, .brand-font {
   border-radius: var(--radius-sm);
 }
 
-/* Versão provisória com letras MP */
-
 .mercado-pago-badge__logo {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  flex: 0 0 auto;
+  flex: 0 0 40px;
 
   width: 40px;
   height: 40px;
@@ -1132,18 +1469,15 @@ h1, h2, h3, .brand-font {
 
   font-size: 12px;
   font-weight: 800;
-  line-height: 1;
 }
-
-/* Caso depois seja usado o logo oficial em imagem */
 
 .mercado-pago-badge__image {
   display: block;
 
-  flex: 0 0 auto;
-
   width: 44px;
   height: 44px;
+
+  flex: 0 0 44px;
 
   object-fit: contain;
 }
@@ -1159,7 +1493,6 @@ h1, h2, h3, .brand-font {
   color: var(--color-gray-600);
 
   font-size: var(--fs-xs);
-  line-height: 1.3;
 }
 
 .mercado-pago-badge__content strong {
@@ -1174,18 +1507,15 @@ h1, h2, h3, .brand-font {
    ========================================================= */
 
 .shipping-options {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
 
   gap: var(--space-3);
 }
 
-/* Card de cada transportadora */
-
 .shipping-option {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   gap: var(--space-3);
 
@@ -1198,8 +1528,6 @@ h1, h2, h3, .brand-font {
   border: 1px solid var(--color-gray-100);
   border-radius: var(--radius-sm);
 }
-
-/* Quando o card inteiro é um link */
 
 .shipping-option--link {
   color: inherit;
@@ -1227,7 +1555,7 @@ h1, h2, h3, .brand-font {
   outline-offset: 3px;
 }
 
-/* Cabeçalho da transportadora */
+/* Cabeçalho transportadora */
 
 .shipping-option__header {
   display: flex;
@@ -1241,7 +1569,7 @@ h1, h2, h3, .brand-font {
   align-items: center;
   justify-content: center;
 
-  flex: 0 0 auto;
+  flex: 0 0 42px;
 
   width: 42px;
   height: 42px;
@@ -1251,7 +1579,6 @@ h1, h2, h3, .brand-font {
   background: var(--color-primary-light);
 
   font-size: 20px;
-  line-height: 1;
 }
 
 .shipping-option__header div {
@@ -1277,7 +1604,7 @@ h1, h2, h3, .brand-font {
   line-height: 1.4;
 }
 
-/* Ação: calcular / consultar */
+/* Ação */
 
 .shipping-option__action {
   display: flex;
@@ -1285,8 +1612,6 @@ h1, h2, h3, .brand-font {
   justify-content: space-between;
 
   gap: var(--space-3);
-
-  width: 100%;
 
   padding-top: var(--space-3);
 
@@ -1298,7 +1623,8 @@ h1, h2, h3, .brand-font {
   font-weight: 700;
 }
 
-.shipping-option--link:hover .shipping-option__action {
+.shipping-option--link:hover
+.shipping-option__action {
   text-decoration: underline;
 }
 
@@ -1326,7 +1652,6 @@ h1, h2, h3, .brand-font {
   margin-top: 1px;
 
   font-size: 18px;
-  line-height: 1;
 }
 
 .shipping-help p {
@@ -1339,27 +1664,7 @@ h1, h2, h3, .brand-font {
 }
 
 /* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-  .payment-shipping__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .info-card {
-    height: auto;
-  }
-
-  .shipping-options {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-}
-
-/* =========================================================
-   MOBILE
+   TABLET / MOBILE
    ========================================================= */
 
 @media (max-width: 768px) {
@@ -1374,12 +1679,14 @@ h1, h2, h3, .brand-font {
     margin-bottom: var(--space-6);
   }
 
-  .info-card {
-    padding: var(--space-5);
+  .payment-shipping__grid {
+    grid-template-columns: 1fr;
   }
 
-  .shipping-options {
-    grid-template-columns: 1fr;
+  .info-card {
+    height: auto;
+
+    padding: var(--space-5);
   }
 
 }
@@ -1405,6 +1712,8 @@ h1, h2, h3, .brand-font {
   }
 
   .info-card__icon {
+    flex-basis: 46px;
+
     width: 46px;
     height: 46px;
 
@@ -1412,15 +1721,364 @@ h1, h2, h3, .brand-font {
   }
 
   .mercado-pago-badge {
+    display: flex;
+
     width: 100%;
   }
 
-  .shipping-option {
+  .shipping-option,
+  .shipping-help {
     padding: var(--space-3);
   }
 
-  .shipping-help {
-    padding: var(--space-3);
+}
+.site-footer__company-data {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  color: var(--color-gray-600);
+
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+}
+
+.site-footer__company-data span {
+  display: block;
+}
+
+
+/* =========================================================
+   WHATSAPP FLUTUANTE
+   ========================================================= */
+
+.whatsapp-float {
+  position: fixed !important;
+
+  right: 24px !important;
+  bottom: 24px !important;
+
+  left: auto !important;
+  top: auto !important;
+
+  z-index: 99999 !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-width: 56px;
+  min-height: 56px;
+
+  padding: 0 20px 0 15px;
+
+  background: #25d366 !important;
+  color: #ffffff !important;
+
+  border: none;
+  border-radius: 999px;
+
+  text-decoration: none !important;
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22),
+    0 3px 8px rgba(0, 0, 0, 0.16);
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+  background: #1ebe5d !important;
+
+  color: #ffffff !important;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.26),
+    0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.whatsapp-float:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+/* ÍCONE */
+
+.whatsapp-float__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 35px;
+  height: 32px;
+
+  color: #ffffff;
+
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* TEXTO */
+
+.whatsapp-float__text {
+  display: block;
+
+  color: #ffffff;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .whatsapp-float {
+    right: 16px !important;
+    bottom: 16px !important;
+
+    width: 58px;
+    height: 58px;
+
+    min-width: 58px;
+    min-height: 58px;
+
+    padding: 0;
+
+    border-radius: 50%;
+  }
+
+  .whatsapp-float__text {
+    display: none;
+  }
+
+  .whatsapp-float__icon {
+    width: 30px;
+    height: 30px;
+
+    font-size: 25px;
+  }
+
+}
+
+/* =========================================================
+   AVISO DE PRIVACIDADE
+   ========================================================= */
+
+.privacy-banner {
+  position: fixed;
+
+  left: 50%;
+  bottom: 24px;
+
+  z-index: 100000;
+
+  width: min(920px, calc(100% - 32px));
+
+  transform:
+    translate(-50%, 30px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.privacy-banner--visible {
+  transform:
+    translate(-50%, 0);
+
+  opacity: 1;
+  visibility: visible;
+}
+
+.privacy-banner--closing {
+  transform:
+    translate(-50%, 20px);
+
+  opacity: 0;
+}
+
+.privacy-banner__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-6);
+
+  padding:
+    var(--space-5)
+    var(--space-6);
+
+  background: #111827;
+  color: #ffffff;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: var(--radius-md);
+
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.28);
+}
+
+/* TEXTO */
+
+.privacy-banner__text {
+  flex: 1;
+}
+
+.privacy-banner__text strong {
+  display: block;
+
+  margin-bottom: var(--space-2);
+
+  color: #ffffff;
+
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.privacy-banner__text p {
+  margin: 0;
+
+  color: #d1d5db;
+
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+.privacy-banner__text a {
+  display: inline-block;
+
+  margin-top: var(--space-2);
+
+  color: var(--color-accent);
+
+  font-size: var(--fs-sm);
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.privacy-banner__text a:hover {
+  text-decoration: underline;
+}
+
+/* BOTÕES */
+
+.privacy-banner__actions {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  flex: 0 0 auto;
+}
+
+.privacy-banner__button {
+  min-height: 44px;
+
+  padding:
+    var(--space-2)
+    var(--space-5);
+
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.privacy-banner__button:hover {
+  transform: translateY(-1px);
+}
+
+/* ACEITAR */
+
+.privacy-banner__button--primary {
+  border: 1px solid var(--color-primary);
+
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.privacy-banner__button--primary:hover {
+  background: var(--color-primary-dark);
+}
+
+/* RECUSAR */
+
+.privacy-banner__button--secondary {
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.35);
+
+  background: transparent;
+  color: #ffffff;
+}
+
+.privacy-banner__button--secondary:hover {
+  background:
+    rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .privacy-banner {
+    bottom: 12px;
+
+    width: calc(100% - 24px);
+  }
+
+  .privacy-banner__content {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: var(--space-4);
+
+    padding: var(--space-4);
+  }
+
+  .privacy-banner__actions {
+    width: 100%;
+  }
+
+  .privacy-banner__button {
+    flex: 1;
   }
 
 }

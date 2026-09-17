@@ -187,6 +187,8 @@
   </script>
 </head>
 
+
+
 <body>
 
   <!-- Navegação / categorias -->
@@ -341,6 +343,25 @@
 
       <div class="gallery__track">
 
+<img
+          class="gallery__img"
+          src="img/trabajos/reno-1.webp"
+          alt="Camisetas infantis personalizadas"
+          loading="lazy"
+        />
+
+
+<img
+          class="gallery__img"
+          src="img/trabajos/reno-1.webp"
+          alt="Camisetas infantis personalizadas"
+          loading="lazy"
+        />
+
+
+
+
+
         <img
           class="gallery__img"
           src="img/trabajos/reno-1.webp"
@@ -485,205 +506,319 @@
 
   </section>
 
-<div class="payment-shipping__grid">
+<!-- =========================================================
+     PAGAMENTO E ENVIO
+     ========================================================= -->
+<section
+  class="payment-shipping"
+  aria-labelledby="payment-shipping-title"
+>
+  <div class="payment-shipping__container">
 
-  <!-- FORMAS DE PAGAMENTO -->
-  <article class="info-card">
+    <!-- CABEÇALHO -->
+    <div class="payment-shipping__header">
 
-    <div class="info-card__icon" aria-hidden="true">
-      💳
-    </div>
-
-    <div class="info-card__content">
-
-      <h3>Formas de pagamento</h3>
-
-      <p class="info-card__text">
-        Escolha a forma de pagamento mais conveniente para você.
-      </p>
-
-      <ul class="info-card__list">
-
-        <!-- DÉBITO -->
-        <li>
-          <span class="info-card__check" aria-hidden="true">
-            ✓
-          </span>
-
-          <div class="payment-method">
-            <strong>Cartão de débito</strong>
-          </div>
-        </li>
-
-        <!-- CRÉDITO -->
-        <li>
-          <span class="info-card__check" aria-hidden="true">
-            ✓
-          </span>
-
-          <div class="payment-method">
-            <strong>Cartão de crédito</strong>
-            <span>Parcelamento em até 18x</span>
-          </div>
-        </li>
-
-        <!-- PIX -->
-        <li>
-          <span class="info-card__check" aria-hidden="true">
-            ✓
-          </span>
-
-          <div class="payment-method">
-            <strong>Pix</strong>
-          </div>
-        </li>
-
-        <!-- DINHEIRO -->
-        <li>
-          <span class="info-card__check" aria-hidden="true">
-            ✓
-          </span>
-
-          <div class="payment-method">
-            <strong>Dinheiro</strong>
-          </div>
-        </li>
-
-      </ul>
-
-      <!-- MERCADO PAGO -->
-      <div class="mercado-pago-badge">
-
-        <div
-          class="mercado-pago-badge__logo"
-          aria-hidden="true"
-        >
-          MP
-        </div>
-
-        <div class="mercado-pago-badge__content">
-          <small>Pagamentos processados com</small>
-          <strong>Mercado Pago</strong>
-        </div>
-
-      </div>
-
-    </div>
-
-  </article>
-
-</div>
-
-    
-
-
-     <!-- FORMAS DE ENVIO -->
-<article class="info-card">
-  <div class="info-card__icon" aria-hidden="true">
-    🚚
-  </div>
-
-  <div class="info-card__content">
-    <h3>Formas de envio</h3>
-
-    <p class="info-card__text">
-      Escolha uma transportadora e consulte valores e prazos
-      diretamente no site oficial.
-    </p>
-
-    <div class="shipping-options shipping-options--links">
-
-      <!-- CORREIOS -->
-      <a
-        href="https://www2.correios.com.br/sistemas/precosPrazos/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="shipping-option shipping-option--link"
-        aria-label="Calcular frete e prazo nos Correios"
-      >
-        <div class="shipping-option__header">
-          <span class="shipping-option__icon" aria-hidden="true">
-            📦
-          </span>
-
-          <div>
-            <strong>Correios</strong>
-            <span>PAC e SEDEX</span>
-          </div>
-        </div>
-
-        <span class="shipping-option__action">
-          Calcular frete e prazo
-          <span aria-hidden="true">↗</span>
-        </span>
-      </a>
-
-      <!-- JADLOG -->
-      <a
-        href="https://www.jadlog.com.br/jadlog/simulacao"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="shipping-option shipping-option--link"
-        aria-label="Simular frete na Jadlog"
-      >
-        <div class="shipping-option__header">
-          <span class="shipping-option__icon" aria-hidden="true">
-            🚛
-          </span>
-
-          <div>
-            <strong>Jadlog</strong>
-            <span>Transportadora</span>
-          </div>
-        </div>
-
-        <span class="shipping-option__action">
-          Simular frete
-          <span aria-hidden="true">↗</span>
-        </span>
-      </a>
-
-      <!-- LOGGI -->
-      <a
-        href="https://www.loggi.com/enviar-agora/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="shipping-option shipping-option--link"
-        aria-label="Consultar envio pela Loggi"
-      >
-        <div class="shipping-option__header">
-          <span class="shipping-option__icon" aria-hidden="true">
-            🚚
-          </span>
-
-          <div>
-            <strong>Loggi</strong>
-            <span>Envios nacionais e locais</span>
-          </div>
-        </div>
-
-        <span class="shipping-option__action">
-          Consultar envio
-          <span aria-hidden="true">↗</span>
-        </span>
-      </a>
-
-    </div>
-
-    <div class="shipping-help">
-      <span class="shipping-help__icon" aria-hidden="true">
-        ℹ️
-      </span>
+      <h2 id="payment-shipping-title">
+        Pagamento e envio
+      </h2>
 
       <p>
-        O valor e o prazo podem variar conforme o CEP, peso e
-        dimensões do pedido. O frete final será confirmado antes
-        da conclusão da compra.
+        Escolha a forma mais prática para pagar
+        e receber seu pedido.
       </p>
+
     </div>
 
+    <!-- GRID: PAGAMENTO + ENVIO -->
+    <div class="payment-shipping__grid">
+
+      <!-- =====================================================
+           FORMAS DE PAGAMENTO
+           ===================================================== -->
+      <article class="info-card">
+
+        <div
+          class="info-card__icon"
+          aria-hidden="true"
+        >
+          💳
+        </div>
+
+        <div class="info-card__content">
+
+          <h3>Formas de pagamento</h3>
+
+          <p class="info-card__text">
+            Escolha a forma de pagamento mais conveniente
+            para você.
+          </p>
+
+          <ul class="info-card__list">
+
+            <!-- DÉBITO -->
+            <li>
+
+              <span
+                class="info-card__check"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+
+              <div class="payment-method">
+                <strong>Cartão de débito</strong>
+              </div>
+
+            </li>
+
+            <!-- CRÉDITO -->
+            <li>
+
+              <span
+                class="info-card__check"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+
+              <div class="payment-method">
+                <strong>Cartão de crédito</strong>
+                <span>Parcelamento em até 18x</span>
+              </div>
+
+            </li>
+
+            <!-- PIX -->
+            <li>
+
+              <span
+                class="info-card__check"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+
+              <div class="payment-method">
+                <strong>Pix</strong>
+              </div>
+
+            </li>
+
+            <!-- DINHEIRO -->
+            <li>
+
+              <span
+                class="info-card__check"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+
+              <div class="payment-method">
+                <strong>Dinheiro</strong>
+              </div>
+
+            </li>
+
+          </ul>
+
+          <!-- MERCADO PAGO -->
+          <div class="mercado-pago-badge">
+
+            <div
+              class="mercado-pago-badge__logo"
+              aria-hidden="true"
+            >
+              MP
+            </div>
+
+            <div class="mercado-pago-badge__content">
+
+              <small>
+                Pagamentos processados com
+              </small>
+
+              <strong>
+                Mercado Pago
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- =====================================================
+           FORMAS DE ENVIO
+           ===================================================== -->
+      <article class="info-card">
+
+        <div
+          class="info-card__icon"
+          aria-hidden="true"
+        >
+          🚚
+        </div>
+
+        <div class="info-card__content">
+
+          <h3>Formas de envio</h3>
+
+          <p class="info-card__text">
+            Escolha uma transportadora e consulte valores
+            e prazos diretamente no site oficial.
+          </p>
+
+          <div class="shipping-options">
+
+            <!-- CORREIOS -->
+            <a
+              href="https://www2.correios.com.br/sistemas/precosPrazos/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shipping-option shipping-option--link"
+              aria-label="Calcular frete e prazo nos Correios"
+            >
+
+              <div class="shipping-option__header">
+
+                <span
+                  class="shipping-option__icon"
+                  aria-hidden="true"
+                >
+                  📦
+                </span>
+
+                <div>
+                  <strong>Correios</strong>
+                  <span>PAC e SEDEX</span>
+                </div>
+
+              </div>
+
+              <span class="shipping-option__action">
+
+                Calcular frete e prazo
+
+                <span aria-hidden="true">
+                  ↗
+                </span>
+
+              </span>
+
+            </a>
+
+
+            <!-- JADLOG -->
+            <a
+              href="https://www.jadlog.com.br/jadlog/simulacao"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shipping-option shipping-option--link"
+              aria-label="Simular frete na Jadlog"
+            >
+
+              <div class="shipping-option__header">
+
+                <span
+                  class="shipping-option__icon"
+                  aria-hidden="true"
+                >
+                  🚛
+                </span>
+
+                <div>
+                  <strong>Jadlog</strong>
+                  <span>Transportadora</span>
+                </div>
+
+              </div>
+
+              <span class="shipping-option__action">
+
+                Simular frete
+
+                <span aria-hidden="true">
+                  ↗
+                </span>
+
+              </span>
+
+            </a>
+
+
+            <!-- LOGGI -->
+            <a
+              href="https://www.loggi.com/enviar-agora/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shipping-option shipping-option--link"
+              aria-label="Consultar envio pela Loggi"
+            >
+
+              <div class="shipping-option__header">
+
+                <span
+                  class="shipping-option__icon"
+                  aria-hidden="true"
+                >
+                  🚚
+                </span>
+
+                <div>
+                  <strong>Loggi</strong>
+                  <span>Envios nacionais e locais</span>
+                </div>
+
+              </div>
+
+              <span class="shipping-option__action">
+
+                Consultar envio
+
+                <span aria-hidden="true">
+                  ↗
+                </span>
+
+              </span>
+
+            </a>
+
+          </div>
+
+          <!-- AVISO DO FRETE -->
+          <div class="shipping-help">
+
+            <span
+              class="shipping-help__icon"
+              aria-hidden="true"
+            >
+              ℹ️
+            </span>
+
+            <p>
+              O valor e o prazo podem variar conforme o CEP,
+              peso e dimensões do pedido. O frete final será
+              confirmado antes da conclusão da compra.
+            </p>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+    <!-- /payment-shipping__grid -->
+
   </div>
-</article>
+  <!-- /payment-shipping__container -->
+
+</section>
+
 
 
   <!-- Footer carregado via JavaScript -->
@@ -695,6 +830,52 @@
     type="module"
     src="js/main.js"
   ></script>
+
+
+<!-- WHATSAPP FLUTUANTE -->
+<a
+  class="whatsapp-float"
+  href="https://wa.me/5549988789396?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20CarFashion%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Falar com a CarFashion pelo WhatsApp"
+  title="Fale conosco pelo WhatsApp"
+>
+  <span class="whatsapp-float__icon" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width="26"
+      height="26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="M8.5 8.5c.5 3 2 4.5 5 5"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="m8.5 8.5 1.2-.7M13.5 13.5l.7-1.2"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  </span>
+
+ 
+</a>
+
 
 </body>
 

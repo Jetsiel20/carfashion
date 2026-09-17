@@ -9,6 +9,7 @@ import { initGallery } from './gallery.js';
 import { initFooterYear } from './footer-year.js';
 import { initMapLoader } from './map-loader.js';
 import { loadPartial } from './partials.js';
+import { initPrivacyBanner } from './privacy-banner.js';
 
 const siteNav = document.querySelector('.site-nav');
 if (siteNav) {
@@ -34,3 +35,5 @@ const locationMap = document.getElementById('location-map');
 if (locationMap) {
   initMapLoader(locationMap);
 }
+
+initPrivacyBanner();

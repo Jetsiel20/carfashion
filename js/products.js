@@ -228,7 +228,7 @@ export const products = [
     name: 'Caneca preta com tarja branca',
     category: 'Canecas',
     price: 57.50,
-    image: PLACEHOLDER,
+    image: 'img/ct.webp',
     description: 'Preta, com área branca para personalizar',
   },
 
@@ -528,4 +528,30 @@ export const products = [
     image: PLACEHOLDER,
     description: 'Detalhes do serviço a confirmar',
   },
+
+{
+  id: 'suporte-azulejo',
+  name: 'Suporte para azulejo — Par',
+  category: 'Azulejos',
+  price: 3.67,
+  image: PLACEHOLDER,
+  description:
+    'Par de suportes plásticos pretos para exposição de azulejos.',
+},
+
+// =========================================================
+// INSUMOS
+// =========================================================
+
+{
+  id: 'folha-sublimacao',
+  name: 'Folha para Sublimação',
+  category: 'Insumos',
+  price: 5.00,
+  image: PLACEHOLDER,
+  description:
+    'Folha para impressão e transferência por sublimação.',
+},
+
 ];
+
