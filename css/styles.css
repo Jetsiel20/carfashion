@@ -736,9 +736,10 @@ h1, h2, h3, .brand-font {
 
   background:
     linear-gradient(
-      135deg,
-      var(--color-primary-dark),
-      #080b12 70%
+      110deg,
+      var(--color-primary-dark) 0%,
+      #123f72 55%,
+      #2f78b7 100%
     );
 
   color: var(--color-gray-300);
