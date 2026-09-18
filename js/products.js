@@ -99,7 +99,7 @@ export const products = [
   id: 'camiseta-helanca-p',
   name: 'Camiseta Helanca — Personalizada',
   category: 'Camisetas',
-  image: 'img/h-personalizada.webp',
+  image: 'img/personalizada-h.webp',
   description: 'Camiseta em helanca com personalização.',
   variants: [
     { label: 'Infantil', price: 40.00 },
@@ -237,7 +237,7 @@ export const products = [
     name: 'Caneca mágica 325ml',
     category: 'Canecas',
     price: 54.99,
-    image: PLACEHOLDER,
+    image: 'img/caneca-magica.webp',
     description: 'Muda de cor com o calor',
   },
 
@@ -259,7 +259,8 @@ export const products = [
     name: 'Copo térmico 1200ml',
     category: 'Copos e térmicos',
     price: 145.00,
-    image: PLACEHOLDER,
+    image: 'img/c1200.webp',
+    
     description: 'Térmico grande, com alça',
   },
 
@@ -268,7 +269,7 @@ export const products = [
     name: 'Copo térmico 500ml',
     category: 'Copos e térmicos',
     price: 65.00,
-    image: PLACEHOLDER,
+    image:'img/c500.webp',
     description: 'Térmico em aço inox',
   },
 
@@ -277,7 +278,7 @@ export const products = [
     name: 'Copo térmico 500ml — linha colorida',
     category: 'Copos e térmicos',
     price: 125.00,
-    image: PLACEHOLDER,
+    image: 'img/cl.webp',
     description: 'Térmico, linha colorida',
   },
 
@@ -286,7 +287,7 @@ export const products = [
     name: 'Garrafa térmica 500ml',
     category: 'Copos e térmicos',
     price: 110.00,
-    image: PLACEHOLDER,
+    image: 'img/gt.webp',
     description: 'Térmica, com alça de transporte',
   },
 
@@ -295,7 +296,7 @@ export const products = [
     name: 'Copo térmico 600ml',
     category: 'Copos e térmicos',
     price: 65.00,
-    image: PLACEHOLDER,
+    image: 'img/g600.webp',
     description: 'Térmico em aço inox',
   },
 
@@ -304,7 +305,7 @@ export const products = [
     name: 'Copo térmico 473ml',
     category: 'Copos e térmicos',
     price: 65.00,
-    image: PLACEHOLDER,
+    image: 'img/copo-a.webp',
     description: 'Térmico em aço inox',
   },
 
@@ -313,7 +314,7 @@ export const products = [
     name: 'Copo térmico 360ml',
     category: 'Copos e térmicos',
     price: 52.00,
-    image: PLACEHOLDER,
+    image: 'img/copo-360.webp',
     description: 'Térmico em aço inox',
   },
 
@@ -322,7 +323,7 @@ export const products = [
     name: 'Copo cuia inox 350ml',
     category: 'Copos e térmicos',
     price: 51.99,
-    image: PLACEHOLDER,
+    image: 'img/cuia-aço.webp',
     description: 'Térmico, em aço inox',
   },
 
@@ -331,7 +332,8 @@ export const products = [
     name: 'Copo inox 260ml',
     category: 'Copos e térmicos',
     price: 69.99,
-    image: PLACEHOLDER,
+    image: 'img/c260.webp',
+    
     description: 'Térmico, em aço inox',
   },
 
@@ -340,7 +342,7 @@ export const products = [
     name: 'Cuia de madeira',
     category: 'Copos e térmicos',
     price: 89.99,
-    image: PLACEHOLDER,
+    image: 'img/artesanal-c.webp',
     description: 'Para chimarrão, acabamento em madeira',
   },
 
@@ -349,7 +351,7 @@ export const products = [
     name: 'Cuia de porongo',
     category: 'Copos e térmicos',
     price: 48.99,
-    image: PLACEHOLDER,
+    image: 'img/porongo.webp',
     description: 'Para chimarrão, porongo natural',
   },
 
@@ -362,7 +364,7 @@ export const products = [
     name: 'Kit 4 xícaras 200ml + suporte de metal',
     category: 'Presentes',
     price: 154.00,
-    image: PLACEHOLDER,
+    image: 'img/xicara.webp',
     description: 'Conjunto completo com suporte',
   },
 
@@ -371,7 +373,7 @@ export const products = [
     name: 'Caneta emborrachada',
     category: 'Presentes',
     price: 24.99,
-    image: PLACEHOLDER,
+    image: 'img/emborrachada.webp',
     description: 'Personalizada',
   },
 
@@ -380,7 +382,7 @@ export const products = [
     name: 'Toalha de mão 54x28cm',
     category: 'Presentes',
     price: 15.00,
-    image: PLACEHOLDER,
+    image:'img/toalha.webp',
     description: 'Personalizada',
   },
 
@@ -389,7 +391,7 @@ export const products = [
     name: 'Ímã em formato de coração',
     category: 'Presentes',
     price: 11.00,
-    image: PLACEHOLDER,
+    image: 'img/coraçao.webp',
     description: 'Personalizado',
   },
 
@@ -398,7 +400,7 @@ export const products = [
     name: 'Ímã quadrado acrílico — 2 peças',
     category: 'Presentes',
     price: 11.00,
-    image: PLACEHOLDER,
+    image:  'img/ima.webp',
     description: 'Personalizado, 4mm',
   },
 
@@ -410,7 +412,7 @@ export const products = [
     id: 'almofada',
     name: 'Almofada personalizada',
     category: 'Almofadas',
-    image: PLACEHOLDER,
+    image: 'img/almofada.webp',
     description: 'Capa personalizada',
     variants: [
       { label: 'Sem recheio', price: 28.99 },
@@ -426,7 +428,7 @@ export const products = [
     id: 'azulejo',
     name: 'Azulejo cerâmico personalizado',
     category: 'Azulejos',
-    image: PLACEHOLDER,
+    image: 'img/azulejo.webp',
     description: 'Cerâmica personalizada, várias medidas',
     variants: [
       { label: '10x10cm', price: 15.40 },
@@ -445,7 +447,7 @@ export const products = [
     name: 'Chaveiro acrílico',
     category: 'Chaveiros',
     price: 25.00,
-    image: PLACEHOLDER,
+    image: 'img/acrilico.webp',
     description: 'Redondo ou quadrado — informe o formato no pedido',
   },
 
@@ -454,7 +456,7 @@ export const products = [
     name: 'Chaveiro pequeno',
     category: 'Chaveiros',
     price: 7.00,
-    image: PLACEHOLDER,
+    image: 'img/pequeno-p.webp',
     description: 'Personalizado',
   },
 
@@ -467,7 +469,7 @@ export const products = [
     name: 'Metro de DTF',
     category: 'DTF',
     price: 115.00,
-    image: PLACEHOLDER,
+    image: 'img/dtf.webp',
     description: 'Transfer para aplicar você mesmo',
   },
 
@@ -476,7 +478,7 @@ export const products = [
     name: 'Metro de DTF UV',
     category: 'DTF',
     price: 180.00,
-    image: PLACEHOLDER,
+    image: 'img/uv.webp',
     description: 'Transfer UV para aplicar você mesmo',
   },
 
@@ -489,7 +491,7 @@ export const products = [
     name: 'Gravação a laser — nome',
     category: 'Serviços',
     price: 20.00,
-    image: PLACEHOLDER,
+    image: 'img/gravado-l.webp',
     description: 'Gravação a laser de nome em peça própria ou do cliente',
   },
 
@@ -498,7 +500,7 @@ export const products = [
     name: 'Gravação a laser — fotos',
     category: 'Serviços',
     price: 45.00,
-    image: PLACEHOLDER,
+    image: 'img/gravado-c.webp',
     description: 'Gravação a laser de foto',
   },
 
@@ -507,7 +509,7 @@ export const products = [
     name: 'Gravação a laser — copo completo',
     category: 'Serviços',
     price: 56.00,
-    image: PLACEHOLDER,
+    image: 'img/gravado-t.webp',
     description: 'Gravação a laser cobrindo todo o copo',
   },
 
@@ -516,25 +518,27 @@ export const products = [
     name: 'Currículo impresso',
     category: 'Serviços',
     price: 10.00,
-    image: PLACEHOLDER,
+    image: 'img/curriculo.webp',
     description: 'Detalhes do serviço a confirmar',
   },
 
   {
-    id: 'mesa-trabalho',
-    name: 'Mesa de trabalho',
-    category: 'Serviços',
-    price: 25.00,
-    image: PLACEHOLDER,
-    description: 'Detalhes do serviço a confirmar',
-  },
+  id: 'mesa-trabalho',
+  name: 'Montagem de arquivo para DTF',
+  category: 'Serviços',
+  price: 25.00,
+  image: 'img/montagem-dtf.webp',
+  description:
+    'Organização das suas artes em uma folha pronta para impressão DTF.',
+},
+
 
 {
   id: 'suporte-azulejo',
   name: 'Suporte para azulejo — Par',
   category: 'Azulejos',
   price: 3.67,
-  image: PLACEHOLDER,
+  image: 'img/m-a.webp',
   description:
     'Par de suportes plásticos pretos para exposição de azulejos.',
 },
@@ -548,7 +552,7 @@ export const products = [
   name: 'Folha para Sublimação',
   category: 'Insumos',
   price: 5.00,
-  image: PLACEHOLDER,
+  image: 'img/hoja-s.webp',
   description:
     'Folha para impressão e transferência por sublimação.',
 },
