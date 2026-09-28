@@ -40,10 +40,10 @@ export function formatPrice(value) {
 
 function normalizeQuantity(quantity) {
   const parsedQuantity =
-    Number.parseInt(quantity, 10);
+    Number(quantity);
 
   if (
-    !Number.isFinite(parsedQuantity) ||
+    !Number.isSafeInteger(parsedQuantity) ||
     parsedQuantity < 1
   ) {
     return 1;
@@ -157,7 +157,7 @@ function buildMessage(
   if (imageUrl) {
     lines.push(
       '',
-      '🖼️ *Imagem do produto:*',
+      '🖼️ *Imagem de referência (cor e disponibilidade a confirmar):*',
       imageUrl
     );
   }

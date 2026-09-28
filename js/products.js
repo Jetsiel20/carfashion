@@ -1,5 +1,4 @@
 // Catálogo real, preço de varejo.
-// Produtos sem foto definitiva usam PLACEHOLDER até a imagem final ser adicionada.
 // Onde o preço muda por opção, o produto usa `variants` em vez de `price` fixo.
 //
 // Ordem comercial do catálogo:
@@ -11,8 +10,6 @@
 // - preço infantil da camiseta polo;
 // - detalhes de "Currículo impresso";
 // - detalhes de "Mesa de trabalho".
-
-const PLACEHOLDER = 'img/logo-carfashion.webp';
 
 export const products = [
   // =========================================================

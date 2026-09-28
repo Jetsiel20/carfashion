@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+  <base href="/" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página não encontrada | carfashion</title>
@@ -20,7 +21,7 @@
 </head>
 <body>
 
-  <div id="header-slot"></div>
+  <div id="header-slot" class="partial-fallback"><a href="index.html">CarFashion — Início</a></div>
 
   <main class="legal not-found">
     <p class="not-found__code brand-font">404</p>
@@ -32,7 +33,11 @@
     </div>
   </main>
 
-  <div id="footer-slot"></div>
+  <div id="footer-slot" class="partial-fallback">
+    <a href="https://wa.me/5549988789396">Falar pelo WhatsApp</a> ·
+    <a href="termos-de-uso.html">Termos de uso</a> ·
+    <a href="privacidade.html">Política de privacidade</a>
+  </div>
 
   <script type="module">
     import { loadPartial } from './js/partials.js';

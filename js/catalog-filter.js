@@ -43,6 +43,7 @@ export function initCatalogFilter({
   ];
 
   links[0].classList.add('is-active');
+  links[0].setAttribute('aria-current', 'true');
 
   links.forEach((link) => {
     listEl.append(link.parentElement);
@@ -57,9 +58,11 @@ export function initCatalogFilter({
 
     links.forEach((a) => {
       a.classList.remove('is-active');
+      a.removeAttribute('aria-current');
     });
 
     link.classList.add('is-active');
+    link.setAttribute('aria-current', 'true');
 
     const category = link.dataset.category;
 
@@ -76,7 +79,7 @@ export function initCatalogFilter({
     catalogGrid
       .closest('#catalogo')
       ?.scrollIntoView({
-        behavior: 'smooth',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
         block: 'start',
       });
   });

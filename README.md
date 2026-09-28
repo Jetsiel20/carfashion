@@ -4,9 +4,9 @@ Site institucional/catálogo da carfashion (sublimação e DTF, Chapecó-SC). To
 
 ## Contexto de negócio (por que o site é assim)
 
-- O CEO não quer carrinho/checkout: cada card do catálogo tem botão **"Pedir pelo WhatsApp"** que abre uma conversa já com produto, opção escolhida, quantidade e (quando o navegador suporta) a foto do produto anexada.
+- O CEO não quer carrinho/checkout: cada card do catálogo tem botão **"Pedir pelo WhatsApp"** que abre uma conversa já com produto, opção escolhida, quantidade e o link da foto de referência que está visível no card.
 - Sem carrinho → sem necessidade de backend, sessão ou banco de dados. Todo o "estado" de um pedido vive só na mensagem que chega no WhatsApp do CEO.
-- O catálogo nasceu com 7 produtos de exemplo. A lista de preços real do CEO trouxe **~46 produtos reais**, vários com variantes de tamanho/personalização — o projeto cresceu bastante além do escopo inicial, daí este README: documentar a arquitetura antes de crescer mais.
+- O catálogo nasceu com 7 produtos de exemplo. A lista de preços real do CEO trouxe **48 produtos reais**, vários com variantes de tamanho/personalização — o projeto cresceu bastante além do escopo inicial, daí este README: documentar a arquitetura antes de crescer mais.
 
 ## Stack e por quê
 
@@ -31,7 +31,7 @@ Se o projeto um dia crescer para precisar de conta de usuário, pagamento online
 
 ```
 carfasion/
-├── index.html              # única página; todo conteúdo dinâmico é montado por js/main.js
+├── index.html              # página principal; catálogo montado por js/main.js
 ├── css/
 │   ├── tokens.css           # cor, tipografia, espaçamento, raio, sombra — fonte única
 │   └── styles.css           # todo o estilo visual do site, organizado por componente
@@ -43,7 +43,7 @@ carfasion/
 │   ├── carousel.js           # carrossel de fotos dentro de um card (produtos com `images`)
 │   ├── variant-select.js     # <select> de variante (tamanho/personalização) quando o preço muda
 │   ├── qty-stepper.js        # input numérico de quantidade
-│   ├── whatsapp.js           # monta a mensagem e abre o WhatsApp (Web Share API + fallback wa.me)
+│   ├── whatsapp.js           # monta a mensagem e abre o WhatsApp (link direto wa.me)
 │   ├── nav.js                # abre/fecha o menu hambúrguer mobile (só isso — agnóstico do conteúdo)
 │   └── reveal.js             # sistema reutilizável de fade-in ao rolar (IntersectionObserver)
 └── img/                      # fotos e banner
@@ -78,7 +78,7 @@ Cada produto é um objeto. Preço fixo **ou** variantes — nunca os dois:
   name: 'Caneca branca 325ml',
   category: 'Canecas',
   price: 38.99,
-  image: 'img/img-blanco.webp',
+  image: 'img/caneca-branca.webp',
   description: '325ml, pronta para sua arte',
 }
 
@@ -99,7 +99,7 @@ Cada produto é um objeto. Preço fixo **ou** variantes — nunca os dois:
 // Múltiplas fotos (vira carrossel automaticamente — ver carousel.js)
 {
   ...
-  image: 'img/img-azul.webp',      // foto usada no compartilhamento do WhatsApp
+  image: 'img/img-azul.webp',      // foto inicial; o pedido usa a foto visível no carrossel
   images: ['img/img-azul.webp', 'img/img-verde.webp', /* ... */],
   featured: true,                   // ocupa 2 colunas no grid bento (ver .product-card--featured)
 }
@@ -112,16 +112,16 @@ Cada produto é um objeto. Preço fixo **ou** variantes — nunca os dois:
 ### Adicionando um produto novo
 
 1. Copie o formato de um produto parecido em `products.js` (com ou sem `variants`).
-2. Sem foto real ainda? Use `PLACEHOLDER` (a constante já definida no topo do arquivo).
+2. Sem foto real ainda? Use `image: 'img/logo-carfashion.webp'` até incluir a foto definitiva.
 3. Nada mais precisa mudar — nav, filtro e renderização pegam o produto automaticamente.
 
 ## Convenções do projeto
 
 - **BEM** para classes CSS (`.product-card__body`, `.site-nav__toggle`) — Bootstrap só entra pra grid/spacing (`container`, `row`, `col-*`, `py-5`, `gy-4`). Nunca misturar os dois pro mesmo propósito.
-- **Sem estilo inline em JS** — toda aparência visual vive em `styles.css`, mesmo quando é gerado por JS.
+- **Aparência em CSS** — o JS controla apenas o atraso calculado da animação de entrada e o remove ao terminar ou descartar as cards.
 - **Sem `innerHTML`** — os módulos de UI usam `createElement`/`append` (mais seguro, hábito mantido mesmo com dados locais e confiáveis).
 - **Animações respeitam `prefers-reduced-motion`** — ver `reveal.js`.
-- **Um só breakpoint "mobile"**: `768px`, usado tanto pelo nav (menu hambúrguer) quanto pelo hero (recorte da imagem) quanto pelos alvos de toque (`.icon-btn` cresce pra 44px). Já tivemos um bug real de UI inconsistente por dois breakpoints diferentes (768px vs 640px) tratando "mobile" de forma diferente entre componentes — se adicionar um comportamento novo por tamanho de tela, reusar 768px em vez de inventar um valor novo, a menos que haja uma razão específica.
+- **Responsividade**: menu e alvos de toque usam `768px`; outros componentes têm ajustes próprios. O banner mantém sua proporção em todas as telas.
 - **Botão "só ícone"**: sempre usar a classe base `.icon-btn` (32px desktop / 44px mobile) em vez de repetir width/height/cursor em cada botão novo.
 
 ## Rodando localmente
@@ -134,11 +134,19 @@ python -m http.server 8000
 
 Depois abrir `http://localhost:8000`.
 
-## Pendências conhecidas
+## Comportamentos importantes
 
-- **Fotos reais**: só "Caneca branca" e "Caneca colorida" têm fotos reais hoje; o resto usa o logo como placeholder até o CEO/time carregar as fotos por categoria.
-- **Preços faltando**: "Camiseta polo" está publicada só com o preço Adulto (o infantil não veio na lista do CEO).
-- **A confirmar com o CEO**: nome/descrição exata dos 3 "Copo térmico 500ml" (a lista de preços repetia o mesmo nome pra fotos diferentes) e o que exatamente envolve "Currículo impresso" e "Mesa de trabalho" (categoria "Serviços").
-- **Rodapé**: WhatsApp e horário de atendimento ainda "(a definir)" — o número de WhatsApp real já está confirmado em `whatsapp.js` (extraído do banner oficial), falta só refletir no rodapé.
-- **Meta tags Open Graph**: ainda não configuradas — recomendado para o link ter uma prévia bonita ao ser compartilhado no WhatsApp.
-- **Avaliações reais**: a seção "Diferenciais" existe porque ainda não há avaliações no Google — quando o CEO juntar reviews reais, trocar por uma seção de rating real.
+- O aviso de privacidade é informativo: um botão “Entendi” registra a leitura no localStorage. As respostas antigas continuam válidas para não repetir o aviso.
+- Quantidades vazias, fracionadas ou menores que 1 são bloqueadas antes de abrir o WhatsApp.
+- O carrossel envia a foto visível como referência; cor e disponibilidade são confirmadas na conversa.
+- A troca de categoria encerra os observadores de animação anteriores.
+- Rodapé e cabeçalho têm links alternativos enquanto os fragmentos carregam ou se a requisição falhar.
+- Open Graph, contatos e horário de atendimento já estão configurados.
+
+## Pendências comerciais e de conteúdo
+
+- Confirmar preço infantil da camiseta polo e detalhes do serviço de currículo impresso.
+- Validar os nomes e as especificações dos modelos térmicos com o responsável pelo catálogo.
+- Confirmar prazos de produção, personalização, condições do parcelamento e envio com a empresa antes de publicar novas promessas.
+- Incluir avaliações apenas quando houver depoimentos reais autorizados.
+- A compressão das imagens será feita pelo responsável pelo projeto.

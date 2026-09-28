@@ -9,18 +9,25 @@ export function initMobileNav(nav) {
   function closeMenu() {
     menu.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menu de categorias');
   }
 
   toggle.addEventListener('click', () => {
     const isOpen = menu.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Fechar menu de categorias' : 'Abrir menu de categorias');
   });
 
-  menu.querySelectorAll('.site-nav__link').forEach((link) => {
-    link.addEventListener('click', closeMenu);
+  // As categorias são criadas depois da inicialização do menu.
+  menu.addEventListener('click', (event) => {
+    if (event.target.closest('.site-nav__link')) closeMenu();
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeMenu();
+    if (event.key === 'Escape' && menu.classList.contains('is-open')) {
+      const focusWasInMenu = menu.contains(document.activeElement);
+      closeMenu();
+      if (focusWasInMenu) toggle.focus();
+    }
   });
 }

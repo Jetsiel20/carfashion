@@ -182,10 +182,7 @@ h1, h2, h3, .brand-font {
 }
 
 /* ---------- Nav mobile: vira menu hambúrguer ---------- */
-/* 768px é o único breakpoint "isto é mobile" do site inteiro — nav,
-   hero e alvos de toque usam o mesmo valor de propósito, pra nunca ter
-   uma tela (ex.: tablet) onde um componente já mudou de modo e outro
-   ainda não. */
+/* Menu e alvos de toque compartilham o breakpoint de 768px. */
 @media (max-width: 768px) {
   .site-nav {
     flex-wrap: nowrap;
@@ -264,34 +261,21 @@ h1, h2, h3, .brand-font {
 }
 
 /* ---------- Hero ---------- */
-/* Banner é uma imagem única, já com texto embutido (1600x639). No
-   desktop o box usa a mesma proporção da imagem pra nunca cortar nada. */
+/* Banner com texto embutido (1600x639): mantém a proporção em todas
+   as telas e exibe a imagem inteira, inclusive no mobile. */
 .hero {
   background-color: var(--color-primary-dark);
   background-image:
     linear-gradient(rgba(15, 20, 30, 0.05), rgba(15, 20, 30, 0.05)),
     url('../img/banner-fashion.webp');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   color: var(--color-white);
   aspect-ratio: 1600 / 639;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-/* Numa tela estreita, mostrar o banner inteiro (2.5:1) deixa a faixa
-   baixinha e o texto minúsculo. Os detalhes das bordas (contato,
-   ícones) já aparecem em Diferenciais e no rodapé, então em mobile vale
-   mais recortar pro centro — onde está o texto da marca — do que
-   encolher tudo pra caber. */
-@media (max-width: 768px) {
-  .hero {
-    aspect-ratio: auto;
-    height: 260px;
-    background-position: center;
-  }
 }
 
 /* Texto accesível para leitores de tela, oculto visualmente */
@@ -421,7 +405,8 @@ h1, h2, h3, .brand-font {
   scroll-snap-align: start;
 }
 
-.gallery__btn {
+.gallery__btn,
+.product-card__carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -439,15 +424,19 @@ h1, h2, h3, .brand-font {
 }
 
 .gallery__btn:hover,
-.gallery__btn:focus-visible {
+.gallery__btn:focus-visible,
+.product-card__carousel-btn:hover,
+.product-card__carousel-btn:focus-visible {
   background: rgba(0, 0, 0, 0.7);
 }
 
-.gallery__btn--prev {
+.gallery__btn--prev,
+.product-card__carousel-btn--prev {
   left: var(--space-2);
 }
 
-.gallery__btn--next {
+.gallery__btn--next,
+.product-card__carousel-btn--next {
   right: var(--space-2);
 }
 
@@ -470,16 +459,11 @@ h1, h2, h3, .brand-font {
   cursor: pointer;
   transition: transform 0.15s ease, background-color 0.15s ease;
   background: var(--color-whatsapp);
-  color: var(--color-white);
+  color: var(--color-black);
 }
 .btn-cf-whatsapp:hover {
   background: var(--color-whatsapp-dark);
   transform: translateY(-1px);
-}
-.btn-cf-whatsapp:disabled {
-  opacity: 0.7;
-  cursor: wait;
-  transform: none;
 }
 
 /* ---------- Seletor de variante (tamanho/personalização) ---------- */
@@ -542,10 +526,14 @@ h1, h2, h3, .brand-font {
 }
 
 /* ---------- Reveal ao rolar (reutilizável) ---------- */
+.reveal,
+.product-card {
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s ease;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .reveal.is-visible {
   opacity: 1;
@@ -568,10 +556,9 @@ h1, h2, h3, .brand-font {
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.product-card:hover {
+.product-card.is-visible:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
@@ -603,31 +590,28 @@ h1, h2, h3, .brand-font {
   transform: scale(1.03);
 }
 
-.product-card__carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  color: var(--color-white);
-  font-size: var(--fs-lg);
-  line-height: 1;
-  transition: background-color 0.15s ease;
-  z-index: 2;
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .product-card,
+  .product-card__img {
+    transition: none;
+  }
+
+  .reveal,
+  .reveal.is-visible,
+  .product-card.is-visible:hover,
+  .product-card:hover .product-card__img {
+    transform: none;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
 }
 
-.product-card__carousel-btn:hover,
-.product-card__carousel-btn:focus-visible {
-  background: rgba(0, 0, 0, 0.7);
-}
 
-.product-card__carousel-btn--prev {
-  left: var(--space-2);
-}
 
-.product-card__carousel-btn--next {
-  right: var(--space-2);
-}
+
 
 .product-card__body {
   display: flex;
@@ -944,7 +928,7 @@ h1, h2, h3, .brand-font {
 }
 
 .site-footer__contact-link small {
-  color: var(--color-gray-600);
+  color: var(--color-gray-300);
 
   font-size: var(--fs-xs);
 }
@@ -1033,7 +1017,7 @@ h1, h2, h3, .brand-font {
 }
 
 .site-footer__social small {
-  color: var(--color-gray-600);
+  color: var(--color-gray-300);
 
   font-size: var(--fs-xs);
 }
@@ -1057,7 +1041,7 @@ h1, h2, h3, .brand-font {
 }
 
 .site-footer__schedule span {
-  color: var(--color-gray-600);
+  color: var(--color-gray-300);
 
   font-size: var(--fs-xs);
 }
@@ -1087,7 +1071,7 @@ h1, h2, h3, .brand-font {
   border-radius: var(--radius-sm);
 
   background: var(--color-whatsapp);
-  color: var(--color-white);
+  color: var(--color-black);
 
   font-size: var(--fs-sm);
   font-weight: 700;
@@ -1102,7 +1086,7 @@ h1, h2, h3, .brand-font {
 .site-footer__cta:hover {
   background: var(--color-whatsapp-dark);
 
-  color: var(--color-white);
+  color: var(--color-black);
 
   transform: translateY(-2px);
 }
@@ -1137,7 +1121,7 @@ h1, h2, h3, .brand-font {
 .site-footer__bottom p {
   margin: 0;
 
-  color: var(--color-gray-600);
+  color: var(--color-gray-300);
 
   font-size: var(--fs-xs);
 }
@@ -1158,7 +1142,7 @@ h1, h2, h3, .brand-font {
 }
 
 .site-footer__legal-links a {
-  color: var(--color-gray-600);
+  color: var(--color-gray-300);
 
   text-decoration: none;
 
@@ -1472,17 +1456,6 @@ h1, h2, h3, .brand-font {
   font-weight: 800;
 }
 
-.mercado-pago-badge__image {
-  display: block;
-
-  width: 44px;
-  height: 44px;
-
-  flex: 0 0 44px;
-
-  object-fit: contain;
-}
-
 .mercado-pago-badge__content {
   display: flex;
   flex-direction: column;
@@ -1739,7 +1712,7 @@ h1, h2, h3, .brand-font {
 
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-  color: var(--color-gray-600);
+  color: var(--color-gray-300);
 
   font-size: var(--fs-xs);
   line-height: 1.5;
@@ -1755,17 +1728,17 @@ h1, h2, h3, .brand-font {
    ========================================================= */
 
 .whatsapp-float {
-  position: fixed !important;
+  position: fixed;
 
-  right: 24px !important;
-  bottom: 24px !important;
+  right: 24px;
+  bottom: 24px;
 
-  left: auto !important;
-  top: auto !important;
+  left: auto;
+  top: auto;
 
-  z-index: 99999 !important;
+  z-index: 20;
 
-  display: flex !important;
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -1776,13 +1749,13 @@ h1, h2, h3, .brand-font {
 
   padding: 0 20px 0 15px;
 
-  background: #25d366 !important;
-  color: #ffffff !important;
+  background: var(--color-whatsapp);
+  color: var(--color-black);
 
   border: none;
   border-radius: 999px;
 
-  text-decoration: none !important;
+  text-decoration: none;
 
   font-size: 15px;
   font-weight: 700;
@@ -1801,9 +1774,9 @@ h1, h2, h3, .brand-font {
 }
 
 .whatsapp-float:hover {
-  background: #1ebe5d !important;
+  background: #1ebe5d;
 
-  color: #ffffff !important;
+  color: var(--color-black);
 
   transform: translateY(-3px);
 
@@ -1829,20 +1802,10 @@ h1, h2, h3, .brand-font {
   width: 35px;
   height: 32px;
 
-  color: #ffffff;
+  color: var(--color-black);
 
   font-size: 24px;
   line-height: 1;
-}
-
-/* TEXTO */
-
-.whatsapp-float__text {
-  display: block;
-
-  color: #ffffff;
-
-  white-space: nowrap;
 }
 
 /* =========================================================
@@ -1852,8 +1815,8 @@ h1, h2, h3, .brand-font {
 @media (max-width: 600px) {
 
   .whatsapp-float {
-    right: 16px !important;
-    bottom: 16px !important;
+    right: 16px;
+    bottom: 16px;
 
     width: 58px;
     height: 58px;
@@ -1864,10 +1827,6 @@ h1, h2, h3, .brand-font {
     padding: 0;
 
     border-radius: 50%;
-  }
-
-  .whatsapp-float__text {
-    display: none;
   }
 
   .whatsapp-float__icon {
@@ -1889,7 +1848,7 @@ h1, h2, h3, .brand-font {
   left: 50%;
   bottom: 24px;
 
-  z-index: 100000;
+  z-index: 30;
 
   width: min(920px, calc(100% - 32px));
 
@@ -1988,19 +1947,21 @@ h1, h2, h3, .brand-font {
   text-decoration: underline;
 }
 
-/* BOTÕES */
+/* CONFIRMAÇÃO DE LEITURA */
 
 .privacy-banner__actions {
   display: flex;
   align-items: center;
-
-  gap: var(--space-3);
 
   flex: 0 0 auto;
 }
 
 .privacy-banner__button {
   min-height: 44px;
+
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-white);
 
   padding:
     var(--space-2)
@@ -2016,41 +1977,29 @@ h1, h2, h3, .brand-font {
 
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease,
-    border-color 0.2s ease;
+    transform 0.2s ease;
 }
 
 .privacy-banner__button:hover {
   transform: translateY(-1px);
-}
-
-/* ACEITAR */
-
-.privacy-banner__button--primary {
-  border: 1px solid var(--color-primary);
-
-  background: var(--color-primary);
-  color: #ffffff;
-}
-
-.privacy-banner__button--primary:hover {
   background: var(--color-primary-dark);
 }
 
-/* RECUSAR */
+@media (prefers-reduced-motion: reduce) {
+  .privacy-banner,
+  .privacy-banner__button {
+    transition: none;
+  }
 
-.privacy-banner__button--secondary {
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.35);
+  .privacy-banner,
+  .privacy-banner--visible,
+  .privacy-banner--closing {
+    transform: translateX(-50%);
+  }
 
-  background: transparent;
-  color: #ffffff;
-}
-
-.privacy-banner__button--secondary:hover {
-  background:
-    rgba(255, 255, 255, 0.08);
+  .privacy-banner__button:hover {
+    transform: none;
+  }
 }
 
 /* =========================================================
@@ -2082,4 +2031,77 @@ h1, h2, h3, .brand-font {
     flex: 1;
   }
 
+}
+
+/* Informação da foto sem interferir nas setas do carrossel. */
+.product-card__photo-note {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: var(--space-2);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-gray-600);
+  font-size: var(--fs-xs);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Páginas legais e alternativas de carregamento. */
+.legal-header {
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-primary);
+}
+
+.legal {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.legal h1 { font-size: var(--fs-2xl); }
+.legal h2 { margin-top: var(--space-8); font-size: var(--fs-xl); }
+.legal a, .partial-fallback a { color: var(--color-primary-dark); }
+.legal__updated { color: var(--color-gray-600); font-size: var(--fs-sm); }
+.partial-fallback { padding: var(--space-4); text-align: center; }
+.not-found { text-align: center; }
+.not-found__code { color: var(--color-primary); font-size: 4rem; margin: 0; }
+.not-found__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-4); }
+.not-found__actions .location__cta { color: var(--color-white); }
+.not-found__actions .not-found__secondary { background: var(--color-gray-100); color: var(--color-primary-dark); }
+
+/* Respeita a preferência também nos demais controles da página. */
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__toggle-bar,
+  .site-nav__menu,
+  .site-nav__menu.is-open,
+  .site-nav__link,
+  .btn-cf-whatsapp,
+  .gallery__btn,
+  .product-card__carousel-btn,
+  .location__map-load,
+  .location__cta,
+  .site-footer__contact-link,
+  .site-footer__social,
+  .site-footer__cta,
+  .site-footer__legal-links a,
+  .info-card,
+  .shipping-option--link,
+  .whatsapp-float {
+    transition: none;
+  }
+
+  .btn-cf-whatsapp:hover,
+  .location__cta:hover,
+  .site-footer__contact-link:hover,
+  .site-footer__social:hover,
+  .site-footer__cta:hover,
+  .info-card:hover,
+  .shipping-option--link:hover,
+  .whatsapp-float:hover {
+    transform: none;
+  }
 }

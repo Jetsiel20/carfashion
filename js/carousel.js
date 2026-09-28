@@ -1,13 +1,12 @@
-// Carrossel de fotos do card de produto. Demo visual: só troca a foto ao
-// clicar nas flechas. Ainda não decide cor nenhuma nem entra na mensagem
-// do WhatsApp — isso fica pra quando o CEO confirmar se o carrossel
-// também serve de seletor.
+// A foto visível acompanha o pedido como referência; a cor é confirmada
+// pelo WhatsApp, sem tratar a navegação pelas fotos como reserva de estoque.
 
 export function buildProductMedia(product) {
   const images = product.images && product.images.length > 1 ? product.images : [product.image];
 
   const media = document.createElement('div');
   media.className = 'product-card__media';
+  let index = 0;
 
   const img = document.createElement('img');
   img.className = 'product-card__img';
@@ -17,19 +16,24 @@ export function buildProductMedia(product) {
   media.append(img);
 
   if (images.length > 1) {
-    let index = 0;
     const show = (nextIndex) => {
       index = (nextIndex + images.length) % images.length;
       img.src = images[index];
+      img.alt = `${product.name} — foto ${index + 1} de ${images.length}`;
     };
+    show(0);
+
+    const note = document.createElement('p');
+    note.className = 'product-card__photo-note';
+    note.textContent = 'Foto de referência. Confirme a cor pelo WhatsApp.';
 
     const prevBtn = buildCarouselBtn('prev', '‹', 'Foto anterior', () => show(index - 1));
     const nextBtn = buildCarouselBtn('next', '›', 'Próxima foto', () => show(index + 1));
 
-    media.append(prevBtn, nextBtn);
+    media.append(prevBtn, nextBtn, note);
   }
 
-  return media;
+  return { media, getImage: () => images[index] };
 }
 
 function buildCarouselBtn(direction, glyph, label, onClick) {

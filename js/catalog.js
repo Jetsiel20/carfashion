@@ -44,7 +44,7 @@ function buildProductCard(product) {
 
   /* IMAGEM */
 
-  const media =
+  const { media, getImage } =
     buildProductMedia(product);
 
   /* CONTEÚDO */
@@ -58,7 +58,7 @@ function buildProductCard(product) {
   /* NOME */
 
   const name =
-    document.createElement('div');
+    document.createElement('h3');
 
   name.className =
     'product-card__name';
@@ -126,7 +126,7 @@ function buildProductCard(product) {
   const {
     wrap: qtyWrap,
     input: qtyInput,
-  } = buildQtyStepper();
+  } = buildQtyStepper(product.name);
 
   /* BOTÃO WHATSAPP */
 
@@ -155,17 +155,11 @@ function buildProductCard(product) {
     'click',
     () => {
 
-      const quantity =
-        Math.max(
-          1,
-          Number.parseInt(
-            qtyInput.value,
-            10
-          ) || 1
-        );
+      if (!qtyInput.reportValidity()) return;
+      const quantity = Number(qtyInput.value);
 
       requestOrder(
-        product,
+        { ...product, image: getImage() },
         quantity,
         getSelected()
       );
@@ -205,11 +199,14 @@ function buildProductCard(product) {
    RENDERIZAÇÃO
    ========================================================= */
 
+const revealCleanups = new WeakMap();
+
 export function renderCatalog(
   container,
   items
 ) {
 
+  revealCleanups.get(container)?.();
   container.replaceChildren();
 
   for (const product of items) {
@@ -218,9 +215,9 @@ export function renderCatalog(
     );
   }
 
-  initScrollReveal(
+  revealCleanups.set(container, initScrollReveal(
     container.querySelectorAll(
       '.product-card'
     )
-  );
+  ));
 }

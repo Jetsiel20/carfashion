@@ -28,12 +28,11 @@ if (navCategories && catalogGrid) {
   initCatalogFilter({ listEl: navCategories, products, catalogGrid, renderCatalog });
 }
 
-await loadPartial('#footer-slot', 'partials/footer.html');
-initFooterYear();
-
 const locationMap = document.getElementById('location-map');
 if (locationMap) {
   initMapLoader(locationMap);
 }
 
 initPrivacyBanner();
+
+loadPartial('#footer-slot', 'partials/footer.html').then(initFooterYear);

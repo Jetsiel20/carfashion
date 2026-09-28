@@ -13,7 +13,8 @@ export function initGallery(section) {
     if (!item) return;
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     const amount = item.getBoundingClientRect().width + gap;
-    track.scrollBy({ left: direction * amount, behavior: 'smooth' });
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    track.scrollBy({ left: direction * amount, behavior });
   }
 
   prevBtn.addEventListener('click', () => scrollByOneItem(-1));

@@ -8,40 +8,41 @@
 // Este aviso informa sobre recursos essenciais e serviços
 // externos utilizados pelo site.
 //
-// A preferência do visitante é armazenada apenas no
+// A confirmação de leitura é armazenada apenas no
 // localStorage do navegador.
 // =========================================================
 
+// Mantém a chave existente para não repetir o aviso a quem já respondeu.
 const STORAGE_KEY = 'carfashion_privacy_choice';
 
-function saveChoice(choice) {
+function acknowledgeNotice() {
   try {
-    localStorage.setItem(STORAGE_KEY, choice);
+    localStorage.setItem(STORAGE_KEY, 'acknowledged');
   } catch {
     // Se o navegador bloquear localStorage,
     // o site continua funcionando normalmente.
   }
 }
 
-function getChoice() {
+function hasAcknowledgedNotice() {
   try {
-    return localStorage.getItem(STORAGE_KEY);
+    return Boolean(localStorage.getItem(STORAGE_KEY));
   } catch {
-    return null;
+    return false;
   }
 }
 
-function closeBanner(banner) {
+async function closeBanner(banner) {
   banner.classList.add('privacy-banner--closing');
-
-  window.setTimeout(() => {
-    banner.remove();
-  }, 250);
+  // Usa a duração real do CSS; sem animação, remove imediatamente.
+  const animations = banner.getAnimations?.() ?? [];
+  await Promise.allSettled(animations.map((animation) => animation.finished));
+  banner.remove();
 }
 
 export function initPrivacyBanner() {
-  // Já existe uma preferência salva.
-  if (getChoice()) return;
+  // Inclui as respostas salvas pela versão anterior do aviso.
+  if (hasAcknowledgedNotice()) return;
 
   // Evita duplicidade.
   if (document.querySelector('.privacy-banner')) return;
@@ -55,52 +56,28 @@ export function initPrivacyBanner() {
     'Aviso de privacidade'
   );
 
-  banner.innerHTML = `
-    <div class="privacy-banner__content">
+  const content = document.createElement('div');
+  content.className = 'privacy-banner__content';
+  const text = document.createElement('div');
+  text.className = 'privacy-banner__text';
+  const title = document.createElement('strong');
+  title.textContent = 'Sua privacidade importa';
+  const description = document.createElement('p');
+  description.textContent = 'A CarFashion não utiliza cookies de rastreamento ou publicidade. Alguns recursos externos podem processar dados técnicos necessários para o funcionamento do site.';
+  const link = document.createElement('a');
+  link.href = 'privacidade.html';
+  link.textContent = 'Saiba mais';
+  text.append(title, description, link);
 
-      <div class="privacy-banner__text">
-
-        <strong>
-          Sua privacidade importa
-        </strong>
-
-        <p>
-          A CarFashion não utiliza cookies de rastreamento
-          ou publicidade. Alguns recursos externos podem
-          processar dados técnicos necessários para o
-          funcionamento do site.
-        </p>
-
-        <a href="privacidade.html">
-          Saiba mais
-        </a>
-
-      </div>
-
-      <div class="privacy-banner__actions">
-
-        <button
-          type="button"
-          class="privacy-banner__button
-                 privacy-banner__button--secondary"
-          data-privacy-action="reject"
-        >
-          Recusar
-        </button>
-
-        <button
-          type="button"
-          class="privacy-banner__button
-                 privacy-banner__button--primary"
-          data-privacy-action="accept"
-        >
-          Aceitar
-        </button>
-
-      </div>
-
-    </div>
-  `;
+  const actions = document.createElement('div');
+  actions.className = 'privacy-banner__actions';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'privacy-banner__button';
+  button.textContent = 'Entendi';
+  actions.append(button);
+  content.append(text, actions);
+  banner.append(content);
 
   document.body.append(banner);
 
@@ -111,18 +88,9 @@ export function initPrivacyBanner() {
     );
   });
 
-  banner.addEventListener('click', (event) => {
-    const button = event.target.closest(
-      '[data-privacy-action]'
-    );
-
-    if (!button) return;
-
-    const choice =
-      button.dataset.privacyAction;
-
-    saveChoice(choice);
-
+  button.addEventListener('click', () => {
+    button.disabled = true;
+    acknowledgeNotice();
     closeBanner(banner);
-  });
+  }, { once: true });
 }

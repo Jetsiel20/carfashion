@@ -1,6 +1,6 @@
 // Seletor numérico de quantidade usado no card de produto.
 
-export function buildQtyStepper() {
+export function buildQtyStepper(productName) {
   const wrap = document.createElement('div');
   wrap.className = 'qty-stepper';
 
@@ -8,9 +8,11 @@ export function buildQtyStepper() {
   input.type = 'number';
   input.min = '1';
   input.step = '1';
+  input.max = String(Number.MAX_SAFE_INTEGER);
+  input.required = true;
   input.value = '1';
   input.className = 'qty-stepper__input';
-  input.setAttribute('aria-label', 'Quantidade');
+  input.setAttribute('aria-label', `Quantidade de ${productName}`);
 
   wrap.append(input);
   return { wrap, input };

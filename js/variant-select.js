@@ -14,7 +14,7 @@ export function buildVariantSelect(product) {
 
   const select = document.createElement('select');
   select.className = 'variant-select__input';
-  select.setAttribute('aria-label', 'Opção');
+  select.setAttribute('aria-label', `Opção de ${product.name}`);
 
   product.variants.forEach((variant, index) => {
     const option = document.createElement('option');

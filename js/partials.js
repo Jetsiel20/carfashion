@@ -10,8 +10,9 @@ export async function loadPartial(selector, url) {
   try {
     const response = await fetch(url);
     if (!response.ok) return;
-    el.outerHTML = await response.text();
+    const html = new DOMParser().parseFromString(await response.text(), 'text/html');
+    el.replaceWith(...html.body.childNodes);
   } catch {
-    // Sem conexão/servidor: a página segue funcional, só sem esse pedaço.
+    // Preserva o conteúdo alternativo se o recurso não puder ser carregado.
   }
 }
